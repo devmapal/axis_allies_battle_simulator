@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AxisAlliesBattleSimulator.iml" filepath="$PROJECT_DIR$/AxisAlliesBattleSimulator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/axis_allies_calc/axis_allies_calc.iml" filepath="$PROJECT_DIR$/axis_allies_calc/axis_allies_calc.iml" />
+    </modules>
+  </component>
+</project>
+
