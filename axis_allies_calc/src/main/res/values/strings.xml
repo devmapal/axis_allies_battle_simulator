@@ -34,5 +34,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="attacker_wd">attacker_wd</string>
     <string name="defender_wd">defender_wd</string>
+    <string name="key_pref_take_territory">pref_take_territory</string>
+    <string name="key_pref_sim_iters">pref_sim_iters</string>
+    <string name="pref_sim_iters">Simulation iterations</string>
+    <string name="pref_description_sim_iters">The number of battles that will be simulated</string>
 
 </resources>

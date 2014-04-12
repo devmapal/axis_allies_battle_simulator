@@ -1,20 +1,14 @@
 package foss.devmapal.axis_allies_calc.axis_allies_calc;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.ListFragment;
+import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ProgressBar;
 
-
-import foss.devmapal.axis_allies_calc.axis_allies_calc.dummy.DummyContent;
 
 /**
  * A fragment representing a list of Items.
@@ -92,7 +86,15 @@ public class LandResultFragment extends ListFragment {
         if (BuildConfig.DEBUG) {
             Log.d(Constants.LOG, "Calculating battle");
         }
-
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        boolean take_territory = sp.getBoolean(getString(R.string.key_pref_take_territory), true);
+        int sim_iters = Integer.parseInt(sp.getString(getString(R.string.key_pref_sim_iters), "100000"));
+        LandBattle battle = new LandBattle(attacker,
+                attacker_wd,
+                defender,
+                defender_wd,
+                sim_iters,
+                take_territory);
     }
 
     public interface Constants {
