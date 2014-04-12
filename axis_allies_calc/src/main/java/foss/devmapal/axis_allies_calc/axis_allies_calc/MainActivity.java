@@ -31,19 +31,16 @@ public class MainActivity extends Activity
     private LandFragment land_fragment;
     private NavalFragment naval_fragment;
 
-    private Army attacker;
-    private WeaponsDevelopment attacker_wd;
-    private Army defender;
-    private WeaponsDevelopment defender_wd;
+    private int nav_pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        attacker = new Army();
-        attacker_wd = new WeaponsDevelopment();
-        defender = new Army();
-        defender_wd = new WeaponsDevelopment();
+        land_fragment = LandFragment.newInstance();
+        naval_fragment = NavalFragment.newInstance();
+
+        nav_pos = 0;
 
         setContentView(R.layout.activity_main);
 
@@ -61,22 +58,31 @@ public class MainActivity extends Activity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentTransaction ft;
+        nav_pos = position;
         switch(position) {
             case 0:
                 ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.container, LandFragment.newInstance(attacker,
-                                                                    attacker_wd,
-                                                                    defender,
-                                                                    defender_wd));
+                ft.replace(R.id.container, land_fragment);
                 ft.commit();
                 break;
             case 1:
                 ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.container, NavalFragment.newInstance(attacker,
-                                                                     attacker_wd,
-                                                                     defender,
-                                                                     defender_wd));
+                ft.replace(R.id.container, naval_fragment);
                 ft.commit();
+                break;
+        }
+    }
+
+    @Override
+    public void onRunAction() {
+        switch(nav_pos) {
+            case 0:
+                Intent i = new Intent(this, ResultActivity.class);
+                i.putExtra(getString(R.string.attacker), land_fragment.getAttacker());
+                i.putExtra(getString(R.string.attacker_wd), land_fragment.getAttacker_wd());
+                i.putExtra(getString(R.string.defender), land_fragment.getDefender());
+                i.putExtra(getString(R.string.defender_wd), land_fragment.getDefender_wd());
+                startActivity(i);
                 break;
         }
     }
@@ -125,12 +131,12 @@ public class MainActivity extends Activity
             startActivity(i);
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
 
     @Override
     public void onFragmentInteraction(String id) {
-
     }
 }

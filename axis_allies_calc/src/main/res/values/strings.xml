@@ -30,5 +30,9 @@
     <string name="heavy_bombers">Heavy Bombers</string>
     <string name="combined_bombardment">Combined Bombardment</string>
     <string name="jet_fighters">Jet Fighters</string>
+    <string name="title_activity_result">ResultActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="attacker_wd">attacker_wd</string>
+    <string name="defender_wd">defender_wd</string>
 
 </resources>

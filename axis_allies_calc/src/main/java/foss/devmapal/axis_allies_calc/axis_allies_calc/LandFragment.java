@@ -29,12 +29,14 @@ public class LandFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public static LandFragment newInstance(Army attacker,
-                                           WeaponsDevelopment attacker_wd,
-                                           Army defender,
-                                           WeaponsDevelopment defender_wd) {
+    public static LandFragment newInstance() {
         LandFragment fragment = new LandFragment();
         Bundle args = new Bundle();
+
+        Army attacker = new Army();
+        WeaponsDevelopment attacker_wd = new WeaponsDevelopment();
+        Army defender = new Army();
+        WeaponsDevelopment defender_wd = new WeaponsDevelopment();
         args.putSerializable(ARG_ATTACKER, attacker);
         args.putSerializable(ARG_ATTACKER_WD, attacker_wd);
         args.putSerializable(ARG_DEFENDER, defender);
@@ -63,40 +65,7 @@ public class LandFragment extends Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.land_input, container, false);
-
-        CheckBox combined_bombardment = (CheckBox) view.findViewById(R.id.combined_bombardment);
-        combined_bombardment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attacker_wd.combined_bombardment = ((CheckBox) v).isChecked();
-            }
-        });
-        CheckBox heavy_bombers = (CheckBox) view.findViewById(R.id.heavy_bombers);
-        heavy_bombers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attacker_wd.heavy_bombers = ((CheckBox) v).isChecked();
-            }
-        });
-        CheckBox antiaircraft = (CheckBox) view.findViewById(R.id.d_antiaircraft);
-        antiaircraft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                defender.antiaircraft_gun = ((CheckBox) v).isChecked();
-            }
-        });
-        CheckBox jet_fighters = (CheckBox) view.findViewById(R.id.jet_fighters);
-        jet_fighters.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                defender_wd.jet_fighters = ((CheckBox) v).isChecked();
-            }
-        });
-
+    private void setFields(View view) {
         // Initialize attacker input fields
         EditText et = (EditText) view.findViewById(R.id.a_infantry);
         et.setText(Integer.toString(attacker.infantry));
@@ -112,8 +81,10 @@ public class LandFragment extends Fragment {
         et.setText(Integer.toString(attacker.battleships));
         et = (EditText) view.findViewById(R.id.a_destroyers);
         et.setText(Integer.toString(attacker.destroyers));
-        combined_bombardment.setChecked(attacker_wd.combined_bombardment);
-        heavy_bombers.setChecked(attacker_wd.heavy_bombers);
+        CheckBox cb = (CheckBox) view.findViewById(R.id.combined_bombardment);
+        cb.setChecked(attacker_wd.combined_bombardment);
+        cb = (CheckBox) view.findViewById(R.id.heavy_bombers);
+        cb.setChecked(attacker_wd.heavy_bombers);
 
         // Initialize defender input fields
         et = (EditText) view.findViewById(R.id.d_infantry);
@@ -126,34 +97,13 @@ public class LandFragment extends Fragment {
         et.setText(Integer.toString(defender.fighters));
         et = (EditText) view.findViewById(R.id.d_bombers);
         et.setText(Integer.toString(defender.bombers));
-        antiaircraft.setChecked(defender.antiaircraft_gun);
-        jet_fighters.setChecked(defender_wd.jet_fighters);
-
-        return view;
+        cb = (CheckBox) view.findViewById(R.id.d_antiaircraft);
+        cb.setChecked(defender.antiaircraft_gun);
+        cb = (CheckBox) view.findViewById(R.id.jet_fighters);
+        cb.setChecked(defender_wd.jet_fighters);
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        View view = getView();
-
+    private void getFields(View view) {
         // Save attacker unit count
         EditText et = (EditText) view.findViewById(R.id.a_infantry);
         try {
@@ -241,6 +191,86 @@ public class LandFragment extends Fragment {
         } catch (NullPointerException e) {
             defender.bombers = 0;
         }
+    }
+
+    public Army getAttacker() {
+        return new Army(attacker);
+    }
+
+    public WeaponsDevelopment getAttacker_wd() {
+        return new WeaponsDevelopment(attacker_wd);
+    }
+
+    public Army getDefender() {
+        return new Army(defender);
+    }
+
+    public WeaponsDevelopment getDefender_wd() {
+        return new WeaponsDevelopment(defender_wd);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.land_input, container, false);
+
+        CheckBox combined_bombardment = (CheckBox) view.findViewById(R.id.combined_bombardment);
+        combined_bombardment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attacker_wd.combined_bombardment = ((CheckBox) v).isChecked();
+            }
+        });
+        CheckBox heavy_bombers = (CheckBox) view.findViewById(R.id.heavy_bombers);
+        heavy_bombers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attacker_wd.heavy_bombers = ((CheckBox) v).isChecked();
+            }
+        });
+        CheckBox antiaircraft = (CheckBox) view.findViewById(R.id.d_antiaircraft);
+        antiaircraft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                defender.antiaircraft_gun = ((CheckBox) v).isChecked();
+            }
+        });
+        CheckBox jet_fighters = (CheckBox) view.findViewById(R.id.jet_fighters);
+        jet_fighters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                defender_wd.jet_fighters = ((CheckBox) v).isChecked();
+            }
+        });
+
+        setFields(view);
+
+        return view;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        View view = getView();
+
+        getFields(view);
     }
 
     /**

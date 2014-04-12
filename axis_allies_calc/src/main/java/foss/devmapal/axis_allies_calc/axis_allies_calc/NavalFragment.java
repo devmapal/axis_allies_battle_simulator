@@ -29,12 +29,15 @@ public class NavalFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     // TODO: Rename and change types of parameters
-    public static NavalFragment newInstance(Army attacker,
-                                            WeaponsDevelopment attacker_wd,
-                                            Army defender,
-                                            WeaponsDevelopment defender_wd) {
+    public static NavalFragment newInstance() {
         NavalFragment fragment = new NavalFragment();
         Bundle args = new Bundle();
+
+        Army attacker = new Army();
+        WeaponsDevelopment attacker_wd = new WeaponsDevelopment();
+        Army defender = new Army();
+        WeaponsDevelopment defender_wd = new WeaponsDevelopment();
+
         args.putSerializable(ARG_ATTACKER, attacker);
         args.putSerializable(ARG_ATTACKER_WD, attacker_wd);
         args.putSerializable(ARG_DEFENDER, defender);

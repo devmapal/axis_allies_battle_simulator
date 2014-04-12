@@ -17,7 +17,7 @@ public class Army implements Serializable {
                transports;
     public boolean antiaircraft_gun;
 
-    public void Army(int infantry,
+    public Army(int infantry,
                      int artillery,
                      int tanks,
                      int fighters,
@@ -39,7 +39,20 @@ public class Army implements Serializable {
         this.antiaircraft_gun = antiaircraft_gun;
     }
 
-    public void  Army() {
-        this.Army(0, 0, 0, 0, 0, 0, 0, 0, 0, false);
+    public Army() {
+        this(0, 0, 0, 0, 0, 0, 0, 0, 0, false);
+    }
+
+    public Army(Army a) {
+        this.infantry = a.infantry;
+        this.artillery = a.artillery;
+        this.tanks = a.tanks;
+        this.fighters = a.fighters;
+        this.bombers = a.bombers;
+        this.battleships = a.battleships;
+        this.destroyers = a.destroyers;
+        this.aircraft_carriers = a.aircraft_carriers;
+        this.transports = a.transports;
+        this.antiaircraft_gun = a.antiaircraft_gun;
     }
 }
