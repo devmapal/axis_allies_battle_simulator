@@ -3,25 +3,20 @@ package foss.devmapal.axis_allies_calc.axis_allies_calc;
 import android.app.Activity;
 
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.Context;
+import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.CheckBox;
 
 
 public class MainActivity extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+                   LandFragment.OnFragmentInteractionListener,
+                   NavalFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -33,9 +28,20 @@ public class MainActivity extends Activity
      */
     private CharSequence mTitle;
 
+    private LandFragment land_fragment;
+    private NavalFragment naval_fragment;
+
+    private int nav_pos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        land_fragment = LandFragment.newInstance();
+        naval_fragment = NavalFragment.newInstance();
+
+        nav_pos = 0;
+
         setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -51,10 +57,34 @@ public class MainActivity extends Activity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+        FragmentTransaction ft;
+        nav_pos = position;
+        switch(position) {
+            case 0:
+                ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.container, land_fragment);
+                ft.commit();
+                break;
+            case 1:
+                ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.container, naval_fragment);
+                ft.commit();
+                break;
+        }
+    }
+
+    @Override
+    public void onRunAction() {
+        switch(nav_pos) {
+            case 0:
+                Intent i = new Intent(this, ResultActivity.class);
+                i.putExtra(getString(R.string.attacker), land_fragment.getAttacker());
+                i.putExtra(getString(R.string.attacker_wd), land_fragment.getAttacker_wd());
+                i.putExtra(getString(R.string.defender), land_fragment.getDefender());
+                i.putExtra(getString(R.string.defender_wd), land_fragment.getDefender_wd());
+                startActivity(i);
+                break;
+        }
     }
 
     public void onSectionAttached(int number) {
@@ -70,6 +100,7 @@ public class MainActivity extends Activity
 
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
+        assert actionBar != null;
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
@@ -100,49 +131,12 @@ public class MainActivity extends Activity
             startActivity(i);
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
+    @Override
+    public void onFragmentInteraction(String id) {
     }
-
 }

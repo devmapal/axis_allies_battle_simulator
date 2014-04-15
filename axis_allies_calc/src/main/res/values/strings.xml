@@ -2,18 +2,41 @@
 <resources>
 
     <string name="app_name">Axis &amp; Allies Battle Simulator</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
+    <string name="action_example">Run</string>
     <string name="action_settings">Settings</string>
     <string name="take_territory_pref">Leave at least 1 ground unit</string>
     <string name="pref_take_territory">Attacker takes territory</string>
     <string name="pref_description_take_territory">At least one land unit is left when attacking</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_naval_battle">Naval battle</string>
-    <string name="title_land_battle">Land battle</string>
+    <string name="title_naval_battle">Naval Battle</string>
+    <string name="title_land_battle">Land Battle</string>
+    <string name="action_run">Run</string>
+    <string name="infantry">Infantry</string>
+    <string name="artillery">Artillery</string>
+    <string name="tanks">Tanks</string>
+    <string name="fighters">Fighters</string>
+    <string name="bombers">Bombers</string>
+    <string name="antiaircraft">Antiaircraft Gun</string>
+    <string name="battleships">Battleships</string>
+    <string name="destroyers">Destroyers</string>
+    <string name="attacker">Attacker</string>
+    <string name="defender">Defender</string>
+    <string name="submarines">Submarines</string>
+    <string name="aircraft_carriers">Aircraft Carriers</string>
+    <string name="transports">Transports</string>
+    <string name="pick_attacker_wd">Attacker Weapons Development</string>
+    <string name="heavy_bombers">Heavy Bombers</string>
+    <string name="combined_bombardment">Combined Bombardment</string>
+    <string name="jet_fighters">Jet Fighters</string>
+    <string name="title_activity_result">ResultActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="attacker_wd">attacker_wd</string>
+    <string name="defender_wd">defender_wd</string>
+    <string name="key_pref_take_territory">pref_take_territory</string>
+    <string name="key_pref_sim_iters">pref_sim_iters</string>
+    <string name="pref_sim_iters">Simulation iterations</string>
+    <string name="pref_description_sim_iters">The number of battles that will be simulated</string>
 
 </resources>

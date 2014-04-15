@@ -1,9 +1,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <CheckBoxPreference
-        android:key="pref_take_territory"
+        android:key="@string/key_pref_take_territory"
         android:title="@string/pref_take_territory"
         android:summary="@string/pref_description_take_territory"
         android:defaultValue="true" />
+
+    <EditTextPreference
+        android:key="@string/key_pref_sim_iters"
+        android:title="@string/pref_sim_iters"
+        android:summary="@string/pref_description_sim_iters"
+        android:singleLine="true"
+        android:inputType="number"
+        android:defaultValue="100000" />
 
 </PreferenceScreen>

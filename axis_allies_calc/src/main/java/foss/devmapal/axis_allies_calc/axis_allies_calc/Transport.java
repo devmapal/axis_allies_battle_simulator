@@ -3,7 +3,7 @@ package foss.devmapal.axis_allies_calc.axis_allies_calc;
 /**
  * Created by devmapal on 3/29/14.
  */
-public class Transporter {
+public class Transport {
     public final static int attack;
     public final static int defense;
     public final static int cost;
