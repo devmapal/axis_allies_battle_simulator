@@ -9,6 +9,7 @@ public class Infantry {
     public static final int attack;
     public static final int defense;
     public static final int cost;
+    public static final String name = "infantry";
 
     static {
         attack = 1;

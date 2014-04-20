@@ -78,10 +78,10 @@ public class MainActivity extends Activity
         switch(nav_pos) {
             case 0:
                 Intent i = new Intent(this, ResultActivity.class);
-                i.putExtra(getString(R.string.attacker), land_fragment.getAttacker());
-                i.putExtra(getString(R.string.attacker_wd), land_fragment.getAttacker_wd());
-                i.putExtra(getString(R.string.defender), land_fragment.getDefender());
-                i.putExtra(getString(R.string.defender_wd), land_fragment.getDefender_wd());
+                i.putExtra("attacker", land_fragment.getAttacker());
+                i.putExtra("attacker_wd", land_fragment.getAttacker_wd());
+                i.putExtra("defender", land_fragment.getDefender());
+                i.putExtra("defender_wd", land_fragment.getDefender_wd());
                 startActivity(i);
                 break;
         }

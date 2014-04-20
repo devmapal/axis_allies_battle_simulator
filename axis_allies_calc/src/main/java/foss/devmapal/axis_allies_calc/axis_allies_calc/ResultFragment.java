@@ -54,14 +54,13 @@ public class ResultFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_result, container, false);
 
         linlaComputeProgress = (LinearLayout) view.findViewById(R.id.linlaComputeProgress);
+        linlaComputeProgress.setVisibility(View.VISIBLE);
         if(land_battle == true) {
             result_fragment = LandResultFragment.newInstance(extras);
             FragmentTransaction ft_child = getChildFragmentManager().beginTransaction();
             ft_child.replace(R.id.result_fragment_container, result_fragment);
             ft_child.commit();
         }
-        ComputeBattleTask task = new ComputeBattleTask();
-        task.execute();
         return view;
     }
 
@@ -75,24 +74,7 @@ public class ResultFragment extends Fragment {
         super.onDetach();
     }
 
-
-    private class ComputeBattleTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            linlaComputeProgress.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            result_fragment.sim_battle();
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            linlaComputeProgress.setVisibility(View.GONE);
-        }
+    public void hide_progress() {
+        linlaComputeProgress.setVisibility(View.GONE);
     }
 }

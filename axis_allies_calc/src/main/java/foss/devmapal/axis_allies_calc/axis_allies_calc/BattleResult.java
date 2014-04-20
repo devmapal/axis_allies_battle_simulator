@@ -23,10 +23,8 @@ public class BattleResult {
     }
 
 
-    public BattleResult(Army attacker,
-                        Army defender,
-                        int sim_iters) {
-        this(attacker, defender, sim_iters, 0, 0);
+    public BattleResult(int sim_iters) {
+        this(new Army(), new Army(), sim_iters, 0, 0);
     }
 
     public Army get_attacker() {

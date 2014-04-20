@@ -7,6 +7,7 @@ public class AntiaircraftGun {
     public final static int attack;
     public final static int defense;
     public final static int cost;
+    public final static String name = "antiaircraftgun";
 
     static {
         attack = 0;

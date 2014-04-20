@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ResultActivity extends Activity {
+public class ResultActivity extends Activity implements LandResultFragment.OnFragmentInteractionListener {
+    private ResultFragment frag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,8 +16,13 @@ public class ResultActivity extends Activity {
         setContentView(R.layout.activity_result);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ResultFragment frag = ResultFragment.newInstance(extras, true);
+        frag = ResultFragment.newInstance(extras, true);
         ft.add(R.id.result_container, frag);
         ft.commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(String id) {
+        frag.hide_progress();
     }
 }

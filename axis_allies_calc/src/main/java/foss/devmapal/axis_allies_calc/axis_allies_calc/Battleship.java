@@ -7,6 +7,7 @@ public class Battleship {
     public final static int attack;
     public final static int defense;
     public final static int cost;
+    public final static String name = "battleship";
 
     static {
         attack = 4;

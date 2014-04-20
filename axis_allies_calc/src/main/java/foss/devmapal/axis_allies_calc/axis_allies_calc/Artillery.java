@@ -7,6 +7,7 @@ public class Artillery {
     public static final int attack;
     public static final int defense;
     public static final int cost;
+    public final static String name= "artillery";
 
     static {
         attack = 2;

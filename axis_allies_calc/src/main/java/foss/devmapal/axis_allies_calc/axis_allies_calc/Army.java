@@ -55,4 +55,73 @@ public class Army implements Serializable {
         this.transports = a.transports;
         this.antiaircraft_gun = a.antiaircraft_gun;
     }
+
+    public int land_battle_units() {
+        return infantry + artillery + tanks + fighters + bombers;
+    }
+
+    public int naval_battle_units() {
+        return fighters + bombers + battleships + destroyers + aircraft_carriers + transports;
+    }
+
+    public Integer get(String name) {
+        switch(name) {
+            case Infantry.name:
+                return infantry;
+            case Artillery.name:
+                return artillery;
+            case Tank.name:
+                return tanks;
+            case Fighter.name:
+                return fighters;
+            case Bomber.name:
+                return bombers;
+            case Battleship.name:
+                return battleships;
+            case Destroyer.name:
+                return destroyers;
+            case Aircraftcarrier.name:
+                return aircraft_carriers;
+            case Transport.name:
+                return transports;
+            case AntiaircraftGun.name:
+                return antiaircraft_gun ? 1 : 0;
+        }
+        return null;
+    }
+
+    public void set(String name, int count) {
+        switch(name) {
+            case Infantry.name:
+                infantry = count;
+                break;
+            case Artillery.name:
+                artillery = count;
+                break;
+            case Tank.name:
+                tanks = count;
+                break;
+            case Fighter.name:
+                fighters = count;
+                break;
+            case Bomber.name:
+                bombers = count;
+                break;
+            case Battleship.name:
+                battleships = count;
+                break;
+            case Destroyer.name:
+                destroyers = count;
+                break;
+            case Aircraftcarrier.name:
+                aircraft_carriers = count;
+                break;
+            case Transport.name:
+                transports = count;
+                break;
+            case AntiaircraftGun.name:
+                antiaircraft_gun = (count != 0);
+                break;
+        }
+    }
 }

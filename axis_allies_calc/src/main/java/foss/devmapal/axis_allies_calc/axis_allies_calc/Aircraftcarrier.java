@@ -7,6 +7,7 @@ public class Aircraftcarrier {
     public final static int attack;
     public final static int defense;
     public final static int cost;
+    public final static String name = "aircraftcarrier";
 
     static {
         attack = 1;

@@ -194,18 +194,26 @@ public class LandFragment extends Fragment {
     }
 
     public Army getAttacker() {
+        View view = getView();
+        getFields(view);
         return new Army(attacker);
     }
 
     public WeaponsDevelopment getAttacker_wd() {
+        View view = getView();
+        getFields(view);
         return new WeaponsDevelopment(attacker_wd);
     }
 
     public Army getDefender() {
+        View view = getView();
+        getFields(view);
         return new Army(defender);
     }
 
     public WeaponsDevelopment getDefender_wd() {
+        View view = getView();
+        getFields(view);
         return new WeaponsDevelopment(defender_wd);
     }
 
@@ -268,9 +276,6 @@ public class LandFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        View view = getView();
-
-        getFields(view);
     }
 
     /**
