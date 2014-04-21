@@ -18,6 +18,11 @@ public class MainActivity extends Activity
                    LandFragment.OnFragmentInteractionListener,
                    NavalFragment.OnFragmentInteractionListener {
 
+    private static final String ARG_ATTACKER = "attacker";
+    private static final String ARG_ATTACKER_WD = "attacker_wd";
+    private static final String ARG_DEFENDER = "defender";
+    private static final String ARG_DEFENDER_WD = "defender_wd";
+
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -37,8 +42,20 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        land_fragment = LandFragment.newInstance();
-        naval_fragment = NavalFragment.newInstance();
+        if(savedInstanceState != null) {
+            land_fragment = LandFragment.newInstance(
+                    (Army) savedInstanceState.getSerializable(ARG_ATTACKER),
+                    (WeaponsDevelopment) savedInstanceState.getSerializable(ARG_ATTACKER_WD),
+                    (Army) savedInstanceState.getSerializable(ARG_DEFENDER),
+                    (WeaponsDevelopment) savedInstanceState.getSerializable(ARG_DEFENDER_WD));
+            naval_fragment = NavalFragment.newInstance();
+        } else {
+            land_fragment = LandFragment.newInstance(new Army(),
+                    new WeaponsDevelopment(),
+                    new Army(),
+                    new WeaponsDevelopment());
+            naval_fragment = NavalFragment.newInstance();
+        }
 
         nav_pos = 0;
 
@@ -52,6 +69,18 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        View view = land_fragment.getView();
+        land_fragment.getFields(view);
+        savedInstanceState.putSerializable(ARG_ATTACKER, land_fragment.getAttacker());
+        savedInstanceState.putSerializable(ARG_ATTACKER_WD, land_fragment.getAttacker_wd());
+        savedInstanceState.putSerializable(ARG_DEFENDER, land_fragment.getDefender());
+        savedInstanceState.putSerializable(ARG_DEFENDER_WD, land_fragment.getDefender_wd());
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override

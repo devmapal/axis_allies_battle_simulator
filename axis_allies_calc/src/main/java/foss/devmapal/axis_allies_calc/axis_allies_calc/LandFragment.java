@@ -29,14 +29,13 @@ public class LandFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public static LandFragment newInstance() {
+    public static LandFragment newInstance(Army attacker,
+                                           WeaponsDevelopment attacker_wd,
+                                           Army defender,
+                                           WeaponsDevelopment defender_wd) {
         LandFragment fragment = new LandFragment();
         Bundle args = new Bundle();
 
-        Army attacker = new Army();
-        WeaponsDevelopment attacker_wd = new WeaponsDevelopment();
-        Army defender = new Army();
-        WeaponsDevelopment defender_wd = new WeaponsDevelopment();
         args.putSerializable(ARG_ATTACKER, attacker);
         args.putSerializable(ARG_ATTACKER_WD, attacker_wd);
         args.putSerializable(ARG_DEFENDER, defender);
@@ -103,7 +102,7 @@ public class LandFragment extends Fragment {
         cb.setChecked(defender_wd.jet_fighters);
     }
 
-    private void getFields(View view) {
+    public void getFields(View view) {
         // Save attacker unit count
         EditText et = (EditText) view.findViewById(R.id.a_infantry);
         try {
