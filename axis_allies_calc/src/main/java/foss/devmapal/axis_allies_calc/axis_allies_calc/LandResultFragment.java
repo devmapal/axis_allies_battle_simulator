@@ -7,10 +7,7 @@ import android.os.Bundle;
 import android.app.ListFragment;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ProgressBar;
 
 
 /**
@@ -21,7 +18,6 @@ import android.widget.ProgressBar;
  */
 public class LandResultFragment extends ListFragment {
 
-    private ProgressBar myProgressBar;
     private OnFragmentInteractionListener mListener;
 
     private static final String ARG_ATTACKER = "attacker";
@@ -36,12 +32,6 @@ public class LandResultFragment extends ListFragment {
     private WeaponsDevelopment defender_wd;
 
     private Tuple<String, String>[] result_items;
-
-    /**
-     * The Adapter which will be used to populate the ListView/GridView with
-     * Views.
-     */
-    private ArrayAdapter mAdapter;
 
 
     public static LandResultFragment newInstance(Bundle extras) {
@@ -62,10 +52,10 @@ public class LandResultFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        result_items = new Tuple[2];
+        result_items = new Tuple[12];
 
         if (getArguments() != null) {
-            Bundle extras = (Bundle) getArguments().getBundle(ARG_EXTRAS);
+            Bundle extras = getArguments().getBundle(ARG_EXTRAS);
             attacker = (Army) extras.getSerializable(ARG_ATTACKER);
             attacker_wd = (WeaponsDevelopment) extras.getSerializable(ARG_ATTACKER_WD);
             defender = (Army) extras.getSerializable(ARG_DEFENDER);
@@ -76,6 +66,7 @@ public class LandResultFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        ArrayAdapter mAdapter;
         mAdapter = new ResultItemAdapter(getActivity(), result_items);
 
         ComputeBattleTask task = new ComputeBattleTask();
@@ -103,7 +94,10 @@ public class LandResultFragment extends ListFragment {
         if (BuildConfig.DEBUG) {
             Log.d(Constants.LOG, "Calculating battle");
         }
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        Activity activity = getActivity();
+        if(activity == null)
+            return;
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
         boolean take_territory = sp.getBoolean(getString(R.string.key_pref_take_territory), true);
         int sim_iters = Integer.parseInt(sp.getString(getString(R.string.key_pref_sim_iters), "100000"));
         LandBattleSimulation battle = new LandBattleSimulation(attacker,
@@ -116,10 +110,32 @@ public class LandResultFragment extends ListFragment {
         BattleResult result = battle.run();
         double attacker_won = ((double) result.get_attacker_won())/result.get_sim_iters()*100;
         double defender_won = ((double) result.get_defender_won())/result.get_sim_iters()*100;
+        
+        double a_infantry_losses = ((double) result.get_attacker().infantry)/result.get_sim_iters();
+        double a_artillery_losses = ((double) result.get_attacker().artillery)/result.get_sim_iters();
+        double a_tank_losses = ((double) result.get_attacker().tanks)/result.get_sim_iters();
+        double a_fighter_losses = ((double) result.get_attacker().fighters)/result.get_sim_iters();
+        double a_bomber_losses = ((double) result.get_attacker().bombers)/result.get_sim_iters();
+        
+        double d_infantry_losses = ((double) result.get_defender().infantry)/result.get_sim_iters();
+        double d_artillery_losses = ((double) result.get_defender().artillery)/result.get_sim_iters();
+        double d_tank_losses = ((double) result.get_defender().tanks)/result.get_sim_iters();
+        double d_fighter_losses = ((double) result.get_defender().fighters)/result.get_sim_iters();
+        double d_bomber_losses = ((double) result.get_defender().bombers)/result.get_sim_iters();
 
-        //result_items = new Tuple[2];
-        result_items[0] = new Tuple<String, String>("Attacker won", Double.toString(attacker_won) + "%");
-        result_items[1] = new Tuple<String, String>("Defender won", Double.toString(defender_won) + "%");
+        result_items[0] = new Tuple<>("Attacker won", Double.toString(attacker_won) + "%");
+        result_items[1] = new Tuple<>("Infantry losses", Double.toString(a_infantry_losses));
+        result_items[2] = new Tuple<>("Artillery losses", Double.toString(a_artillery_losses));
+        result_items[3] = new Tuple<>("Tank losses", Double.toString(a_tank_losses));
+        result_items[4] = new Tuple<>("Fighter losses", Double.toString(a_fighter_losses));
+        result_items[5] = new Tuple<>("Bomber losses", Double.toString(a_bomber_losses));
+
+        result_items[6] = new Tuple<>("Defender won", Double.toString(defender_won) + "%");
+        result_items[7] = new Tuple<>("Infantry losses", Double.toString(d_infantry_losses));
+        result_items[8] = new Tuple<>("Artillery losses", Double.toString(d_artillery_losses));
+        result_items[9] = new Tuple<>("Tank losses", Double.toString(d_tank_losses));
+        result_items[10] = new Tuple<>("Fighter losses", Double.toString(d_fighter_losses));
+        result_items[11] = new Tuple<>("Bomber losses", Double.toString(d_bomber_losses));
     }
 
     private class ComputeBattleTask extends AsyncTask<Void, Void, Void> {
@@ -143,7 +159,6 @@ public class LandResultFragment extends ListFragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(String id);
     }
 

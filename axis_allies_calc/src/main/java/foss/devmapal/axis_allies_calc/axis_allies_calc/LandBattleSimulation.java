@@ -93,6 +93,8 @@ public class LandBattleSimulation extends Battle {
                 return;
             Integer attacker_units = attacker.get(unit_name);
             assertNotNull(attacker_units);
+            if(attacker_units == 0)
+                continue;
             if(attacker_units > defender_hits) {
                 attacker_units -= defender_hits;
                 attacker.set(unit_name, attacker_units);
@@ -150,14 +152,14 @@ public class LandBattleSimulation extends Battle {
         
         Army result_attacker = result.get_attacker();
         result_attacker.infantry += this.attacker.infantry - attacker.infantry;
-        result_attacker.artillery += this.attacker.artillery - attacker.infantry;
+        result_attacker.artillery += this.attacker.artillery - attacker.artillery;
         result_attacker.tanks += this.attacker.tanks - attacker.tanks;
         result_attacker.fighters += this.attacker.fighters - attacker.fighters;
         result_attacker.bombers += this.attacker.bombers - attacker.bombers;
 
         Army result_defender = result.get_defender();
         result_defender.infantry += this.defender.infantry - defender.infantry;
-        result_defender.artillery += this.defender.artillery - defender.infantry;
+        result_defender.artillery += this.defender.artillery - defender.artillery;
         result_defender.tanks += this.defender.tanks - defender.tanks;
         result_defender.fighters += this.defender.fighters - defender.fighters;
         result_defender.bombers += this.defender.bombers - defender.bombers;
