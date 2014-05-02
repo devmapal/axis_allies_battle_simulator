@@ -15,10 +15,10 @@ public class SimulationTest extends InstrumentationTestCase {
 
     public void test1InfVs1Inf() throws Exception {
         Army attacker = new Army();
-        attacker.infantry = 1;
+        attacker.set_infantry(1);
         WeaponsDevelopment attacker_wd = new WeaponsDevelopment();
         Army defender = new Army();
-        defender.infantry = 1;
+        defender.set_infantry(1);
         WeaponsDevelopment defender_wd = new WeaponsDevelopment();
         LandBattleSimulation battle = new LandBattleSimulation(attacker,
                 attacker_wd,
@@ -36,10 +36,10 @@ public class SimulationTest extends InstrumentationTestCase {
 
     public void test1TankVs1Tank() throws Exception {
         Army attacker = new Army();
-        attacker.tanks = 1;
+        attacker.set_tanks(1);
         WeaponsDevelopment attacker_wd = new WeaponsDevelopment();
         Army defender = new Army();
-        defender.tanks = 1;
+        defender.set_tanks(1);
         WeaponsDevelopment defender_wd = new WeaponsDevelopment();
         LandBattleSimulation battle = new LandBattleSimulation(attacker,
                 attacker_wd,
@@ -54,26 +54,4 @@ public class SimulationTest extends InstrumentationTestCase {
         assertTrue(attacker_won/expected_result > 1 - TOLERANCE);
         assertTrue(attacker_won/expected_result < 1 + TOLERANCE);
     }
-
-    // This is wrong, needs fix
-    /*public void test2InfVs1Inf() throws Exception {
-        Army attacker = new Army();
-        attacker.infantry = 2;
-        WeaponsDevelopment attacker_wd = new WeaponsDevelopment();
-        Army defender = new Army();
-        defender.infantry = 1;
-        WeaponsDevelopment defender_wd = new WeaponsDevelopment();
-        LandBattleSimulation battle = new LandBattleSimulation(attacker,
-                attacker_wd,
-                defender,
-                defender_wd,
-                1000000,
-                true);
-
-        BattleResult result = battle.run();
-        double attacker_won = ((double) result.get_attacker_won())/result.get_sim_iters()*100;
-        double expected_result = 100*11./29;
-        assertTrue(attacker_won/expected_result > 1 - TOLERANCE);
-        assertTrue(attacker_won/expected_result < 1 + TOLERANCE);
-    }*/
 }

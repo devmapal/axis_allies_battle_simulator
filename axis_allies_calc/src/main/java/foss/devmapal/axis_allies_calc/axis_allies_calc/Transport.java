@@ -8,6 +8,7 @@ public class Transport {
     public final static int defense;
     public final static int cost;
     public final static String name = "transport";
+    public static final int id = 8;
 
     static {
         attack = 0;

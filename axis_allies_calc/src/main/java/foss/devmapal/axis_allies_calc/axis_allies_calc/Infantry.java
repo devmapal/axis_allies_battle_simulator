@@ -10,6 +10,7 @@ public class Infantry {
     public static final int defense;
     public static final int cost;
     public static final String name = "infantry";
+    public static final int id = 0;
 
     static {
         attack = 1;

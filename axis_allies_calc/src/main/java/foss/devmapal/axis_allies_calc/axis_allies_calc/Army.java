@@ -6,16 +6,7 @@ import java.io.Serializable;
  * Created by devmapal on 4/4/14.
  */
 public class Army implements Serializable {
-    public int infantry,
-               artillery,
-               tanks,
-               fighters,
-               bombers,
-               battleships,
-               destroyers,
-               aircraft_carriers,
-               transports;
-    public boolean antiaircraft_gun;
+    public int[] units;
 
     public Army(int infantry,
                      int artillery,
@@ -26,102 +17,121 @@ public class Army implements Serializable {
                      int destroyers,
                      int aircraft_carriers,
                      int transports,
-                     boolean antiaircraft_gun) {
-        this.infantry = infantry;
-        this.artillery = artillery;
-        this.tanks = tanks;
-        this.fighters = fighters;
-        this.bombers = bombers;
-        this.battleships = battleships;
-        this.destroyers = destroyers;
-        this.aircraft_carriers = aircraft_carriers;
-        this.transports = transports;
-        this.antiaircraft_gun = antiaircraft_gun;
+                     int antiaircraft_gun) {
+        units = new int[10];
+        units[Infantry.id] = infantry;
+        units[Artillery.id] = artillery;
+        units[Tank.id] = tanks;
+        units[Fighter.id] = fighters;
+        units[Bomber.id] = bombers;
+        units[Battleship.id] = battleships;
+        units[Destroyer.id] = destroyers;
+        units[Aircraftcarrier.id] = aircraft_carriers;
+        units[Transport.id] = transports;
+        units[AntiaircraftGun.id] = antiaircraft_gun;
     }
 
     public Army() {
-        this(0, 0, 0, 0, 0, 0, 0, 0, 0, false);
+        this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     public Army(Army a) {
-        this.infantry = a.infantry;
-        this.artillery = a.artillery;
-        this.tanks = a.tanks;
-        this.fighters = a.fighters;
-        this.bombers = a.bombers;
-        this.battleships = a.battleships;
-        this.destroyers = a.destroyers;
-        this.aircraft_carriers = a.aircraft_carriers;
-        this.transports = a.transports;
-        this.antiaircraft_gun = a.antiaircraft_gun;
+        units = new int[10];
+        units[Infantry.id] = a.units[Infantry.id];
+        units[Artillery.id] = a.units[Artillery.id];
+        units[Tank.id] = a.units[Tank.id];
+        units[Fighter.id] = a.units[Fighter.id];
+        units[Bomber.id] = a.units[Bomber.id];
+        units[Battleship.id] = a.units[Battleship.id];
+        units[Destroyer.id] = a.units[Destroyer.id];
+        units[Aircraftcarrier.id] = a.units[Aircraftcarrier.id];
+        units[Transport.id] = a.units[Transport.id];
+        units[AntiaircraftGun.id] = a.units[AntiaircraftGun.id];
     }
 
     public int land_battle_units() {
-        return infantry + artillery + tanks + fighters + bombers;
+        return units[Infantry.id] + units[Artillery.id] + units[Tank.id] + units[Fighter.id] + units[Bomber.id];
     }
 
     public int naval_battle_units() {
-        return fighters + bombers + battleships + destroyers + aircraft_carriers + transports;
+        return units[Fighter.id] + units[Bomber.id] + units[Battleship.id] + units[Destroyer.id] + units[Aircraftcarrier.id] + units[Transport.id];
     }
 
-    public Integer get(String name) {
-        switch(name) {
-            case Infantry.name:
-                return infantry;
-            case Artillery.name:
-                return artillery;
-            case Tank.name:
-                return tanks;
-            case Fighter.name:
-                return fighters;
-            case Bomber.name:
-                return bombers;
-            case Battleship.name:
-                return battleships;
-            case Destroyer.name:
-                return destroyers;
-            case Aircraftcarrier.name:
-                return aircraft_carriers;
-            case Transport.name:
-                return transports;
-            case AntiaircraftGun.name:
-                return antiaircraft_gun ? 1 : 0;
-        }
-        return null;
+    public int get(int id) {
+        return units[id];
     }
 
-    public void set(String name, int count) {
-        switch(name) {
-            case Infantry.name:
-                infantry = count;
-                break;
-            case Artillery.name:
-                artillery = count;
-                break;
-            case Tank.name:
-                tanks = count;
-                break;
-            case Fighter.name:
-                fighters = count;
-                break;
-            case Bomber.name:
-                bombers = count;
-                break;
-            case Battleship.name:
-                battleships = count;
-                break;
-            case Destroyer.name:
-                destroyers = count;
-                break;
-            case Aircraftcarrier.name:
-                aircraft_carriers = count;
-                break;
-            case Transport.name:
-                transports = count;
-                break;
-            case AntiaircraftGun.name:
-                antiaircraft_gun = (count != 0);
-                break;
-        }
+    public void set(int id, int count) {
+        units[id] = count;
+    }
+    
+    public void set_infantry(int infantry) {
+        units[Infantry.id] = infantry;
+    }
+    public int get_infantry() {
+        return units[Infantry.id];
+    }
+
+    public void set_artillery(int artillery) {
+        units[Artillery.id] = artillery;
+    }
+    public int get_artillery() {
+        return units[Artillery.id];
+    }
+
+    public void set_tanks(int tanks) {
+        units[Tank.id] = tanks;
+    }
+    public int get_tanks() {
+        return units[Tank.id];
+    }
+
+    public void set_fighters(int fighters) {
+        units[Fighter.id] = fighters;
+    }
+    public int get_fighters() {
+        return units[Fighter.id];
+    }
+
+    public void set_bombers(int bombers) {
+        units[Bomber.id] = bombers;
+    }
+    public int get_bombers() {
+        return units[Bomber.id];
+    }
+
+    public void set_battleships(int battleships) {
+        units[Battleship.id] = battleships;
+    }
+    public int get_battleships() {
+        return units[Battleship.id];
+    }
+
+    public void set_destroyers(int destroyers) {
+        units[Destroyer.id] = destroyers;
+    }
+    public int get_destroyers() {
+        return units[Destroyer.id];
+    }
+
+    public void set_aircraftcarriers(int aircraftcarriers) {
+        units[Aircraftcarrier.id] = aircraftcarriers;
+    }
+    public int get_aircraftcarriers() {
+        return units[Aircraftcarrier.id];
+    }
+
+    public void set_transports(int transports) {
+        units[Transport.id] = transports;
+    }
+    public int get_transports() {
+        return units[Transport.id];
+    }
+
+    public void set_antiaircraftguns(int antiaircraftguns) {
+        units[AntiaircraftGun.id] = antiaircraftguns;
+    }
+    public int get_antiaircraftguns() {
+        return units[AntiaircraftGun.id];
     }
 }

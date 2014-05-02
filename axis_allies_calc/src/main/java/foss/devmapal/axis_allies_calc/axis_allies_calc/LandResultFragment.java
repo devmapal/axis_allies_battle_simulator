@@ -111,17 +111,17 @@ public class LandResultFragment extends ListFragment {
         double attacker_won = ((double) result.get_attacker_won())/result.get_sim_iters()*100;
         double defender_won = ((double) result.get_defender_won())/result.get_sim_iters()*100;
         
-        double a_infantry_losses = ((double) result.get_attacker().infantry)/result.get_sim_iters();
-        double a_artillery_losses = ((double) result.get_attacker().artillery)/result.get_sim_iters();
-        double a_tank_losses = ((double) result.get_attacker().tanks)/result.get_sim_iters();
-        double a_fighter_losses = ((double) result.get_attacker().fighters)/result.get_sim_iters();
-        double a_bomber_losses = ((double) result.get_attacker().bombers)/result.get_sim_iters();
+        double a_infantry_losses = ((double) result.get_attacker().units[Infantry.id])/result.get_sim_iters();
+        double a_artillery_losses = ((double) result.get_attacker().units[Artillery.id])/result.get_sim_iters();
+        double a_tank_losses = ((double) result.get_attacker().units[Tank.id])/result.get_sim_iters();
+        double a_fighter_losses = ((double) result.get_attacker().units[Fighter.id])/result.get_sim_iters();
+        double a_bomber_losses = ((double) result.get_attacker().units[Bomber.id])/result.get_sim_iters();
         
-        double d_infantry_losses = ((double) result.get_defender().infantry)/result.get_sim_iters();
-        double d_artillery_losses = ((double) result.get_defender().artillery)/result.get_sim_iters();
-        double d_tank_losses = ((double) result.get_defender().tanks)/result.get_sim_iters();
-        double d_fighter_losses = ((double) result.get_defender().fighters)/result.get_sim_iters();
-        double d_bomber_losses = ((double) result.get_defender().bombers)/result.get_sim_iters();
+        double d_infantry_losses = ((double) result.get_defender().units[Infantry.id])/result.get_sim_iters();
+        double d_artillery_losses = ((double) result.get_defender().units[Artillery.id])/result.get_sim_iters();
+        double d_tank_losses = ((double) result.get_defender().units[Tank.id])/result.get_sim_iters();
+        double d_fighter_losses = ((double) result.get_defender().units[Fighter.id])/result.get_sim_iters();
+        double d_bomber_losses = ((double) result.get_defender().units[Bomber.id])/result.get_sim_iters();
 
         result_items[0] = new Tuple<>("Attacker won", Double.toString(attacker_won) + "%");
         result_items[1] = new Tuple<>("Infantry losses", Double.toString(a_infantry_losses));

@@ -8,6 +8,7 @@ public class Tank {
     public final static int defense;
     public final static int cost;
     public final static String name = "tank";
+    public static final int id = 2;
 
     static {
         attack = 3;

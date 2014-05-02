@@ -8,6 +8,7 @@ public class Bomber {
     public final static int defense;
     public final static int cost;
     public final static String name = "bomber";
+    public static final int id = 4;
 
     static {
         attack = 4;

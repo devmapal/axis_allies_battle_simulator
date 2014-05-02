@@ -17,8 +17,8 @@ import static junit.framework.Assert.assertNotNull;
  */
 public class LandBattleSimulation extends Battle {
     private boolean take_territory;
-    private List<String> attacker_hit_order;
-    private List<String> defender_hit_order;
+    private List<Integer> attacker_hit_order;
+    private List<Integer> defender_hit_order;
 
     public LandBattleSimulation(Army attacker,
                                 WeaponsDevelopment attacker_wd,
@@ -29,19 +29,19 @@ public class LandBattleSimulation extends Battle {
         super(attacker, attacker_wd, defender, defender_wd, sim_iters);
         this.take_territory = take_territory;
         
-        attacker_hit_order = new ArrayList<String>(5);
-        attacker_hit_order.add(Infantry.name);
-        attacker_hit_order.add(Artillery.name);
-        attacker_hit_order.add(Tank.name);
-        attacker_hit_order.add(Fighter.name);
-        attacker_hit_order.add(Bomber.name);
+        attacker_hit_order = new ArrayList<Integer>(5);
+        attacker_hit_order.add(Infantry.id);
+        attacker_hit_order.add(Artillery.id);
+        attacker_hit_order.add(Tank.id);
+        attacker_hit_order.add(Fighter.id);
+        attacker_hit_order.add(Bomber.id);
 
-        defender_hit_order = new ArrayList<String>(5);
-        defender_hit_order.add(Bomber.name);
-        defender_hit_order.add(Infantry.name);
-        defender_hit_order.add(Artillery.name);
-        defender_hit_order.add(Tank.name);
-        defender_hit_order.add(Fighter.name);
+        defender_hit_order = new ArrayList<Integer>(5);
+        defender_hit_order.add(Bomber.id);
+        defender_hit_order.add(Infantry.id);
+        defender_hit_order.add(Artillery.id);
+        defender_hit_order.add(Tank.id);
+        defender_hit_order.add(Fighter.id);
     }
 
     public BattleResult run() {
@@ -66,74 +66,74 @@ public class LandBattleSimulation extends Battle {
     }
 
     private int calc_attacker_hits(Army attacker) {
-        int hits = calc_hits(attacker.infantry, Infantry.attack);
-        hits += calc_hits(attacker.artillery, Artillery.attack);
-        hits += calc_hits(attacker.tanks, Tank.attack);
-        hits += calc_hits(attacker.fighters, Fighter.attack);
-        hits += calc_hits(attacker.bombers, Bomber.attack);
+        int hits = calc_hits(attacker.get_infantry(), Infantry.attack);
+        hits += calc_hits(attacker.get_artillery(), Artillery.attack);
+        hits += calc_hits(attacker.get_tanks(), Tank.attack);
+        hits += calc_hits(attacker.get_fighters(), Fighter.attack);
+        hits += calc_hits(attacker.get_bombers(), Bomber.attack);
         if(attacker_wd.heavy_bombers)
-            hits += calc_hits(attacker.bombers, Bomber.attack);
+            hits += calc_hits(attacker.get_bombers(), Bomber.attack);
 
         return hits;
     }
 
     private int calc_defender_hits(Army defender) {
-        int hits = calc_hits(defender.infantry, Infantry.defense);
-        hits += calc_hits(defender.artillery, Artillery.defense);
-        hits += calc_hits(defender.tanks, Tank.defense);
-        hits += calc_hits(defender.fighters, Fighter.defense);
-        hits += calc_hits(defender.bombers, Bomber.defense);
+        int hits = calc_hits(defender.get_infantry(), Infantry.defense);
+        hits += calc_hits(defender.get_artillery(), Artillery.defense);
+        hits += calc_hits(defender.get_tanks(), Tank.defense);
+        hits += calc_hits(defender.get_fighters(), Fighter.defense);
+        hits += calc_hits(defender.get_bombers(), Bomber.defense);
 
         return hits;
     }
 
     private void apply_hits_on_attacker(Army attacker, int defender_hits) {
-        for(String unit_name : attacker_hit_order) {
+        for(int unit_id : attacker_hit_order) {
             if(defender_hits == 0)
                 return;
-            Integer attacker_units = attacker.get(unit_name);
+            Integer attacker_units = attacker.get(unit_id);
             assertNotNull(attacker_units);
             if(attacker_units == 0)
                 continue;
             if(attacker_units > defender_hits) {
                 attacker_units -= defender_hits;
-                attacker.set(unit_name, attacker_units);
+                attacker.set(unit_id, attacker_units);
                 defender_hits = 0;
                 break;
             } else {
                 defender_hits -= attacker_units;
-                int count = attacker.get(unit_name);
-                attacker.set(unit_name, 0);
-                if(attacker.infantry + attacker.artillery + attacker.tanks == 0 &&
+                int count = attacker.get(unit_id);
+                attacker.set(unit_id, 0);
+                if(attacker.get_infantry() + attacker.get_artillery() + attacker.get_tanks() == 0 &&
                    take_territory && count == 1) {
                     defender_hits++;
-                    attacker.set(unit_name, 1);
+                    attacker.set(unit_id, 1);
                 }
             }
         }
 
         if(defender_hits > 0) {
-            int sum = attacker.infantry + attacker.artillery + attacker.tanks;
+            int sum = attacker.get_infantry() + attacker.get_artillery() + attacker.get_tanks();
             if(sum > 0) {
                 assertEquals(sum, 1);
-                attacker.infantry = 0;
-                attacker.artillery = 0;
-                attacker.tanks = 0;
+                attacker.set_infantry(0);
+                attacker.set_artillery(0);
+                attacker.set_tanks(0);
             }
         }
     }
 
     private void apply_hits_on_defender(Army defender, int attacker_hits) {
-        for (String unit_name : defender_hit_order) {
-            Integer defender_units = defender.get(unit_name);
+        for (int unit_id : defender_hit_order) {
+            Integer defender_units = defender.get(unit_id);
             assertNotNull(defender_units);
             if (defender_units > attacker_hits) {
                 defender_units -= attacker_hits;
-                defender.set(unit_name, defender_units);
+                defender.set(unit_id, defender_units);
                 return;
             } else {
                 attacker_hits -= defender_units;
-                defender.set(unit_name, 0);
+                defender.set(unit_id, 0);
             }
         }
     }
@@ -151,21 +151,21 @@ public class LandBattleSimulation extends Battle {
         }
         
         Army result_attacker = result.get_attacker();
-        result_attacker.infantry += this.attacker.infantry - attacker.infantry;
-        result_attacker.artillery += this.attacker.artillery - attacker.artillery;
-        result_attacker.tanks += this.attacker.tanks - attacker.tanks;
-        result_attacker.fighters += this.attacker.fighters - attacker.fighters;
-        result_attacker.bombers += this.attacker.bombers - attacker.bombers;
+        result_attacker.set_infantry(result_attacker.get_infantry() + this.attacker.get_infantry() - attacker.get_infantry());
+        result_attacker.set_artillery(result_attacker.get_artillery() + this.attacker.get_artillery() - attacker.get_artillery());
+        result_attacker.set_tanks(result_attacker.get_tanks() + this.attacker.get_tanks() - attacker.get_tanks());
+        result_attacker.set_fighters(result_attacker.get_fighters() + this.attacker.get_fighters() - attacker.get_fighters());
+        result_attacker.set_bombers(result_attacker.get_bombers() + this.attacker.get_bombers() - attacker.get_bombers());
 
         Army result_defender = result.get_defender();
-        result_defender.infantry += this.defender.infantry - defender.infantry;
-        result_defender.artillery += this.defender.artillery - defender.artillery;
-        result_defender.tanks += this.defender.tanks - defender.tanks;
-        result_defender.fighters += this.defender.fighters - defender.fighters;
-        result_defender.bombers += this.defender.bombers - defender.bombers;
+        result_defender.set_infantry(result_defender.get_infantry() + this.defender.get_infantry() - defender.get_infantry());
+        result_defender.set_artillery(result_defender.get_artillery() + this.defender.get_artillery() - defender.get_artillery());
+        result_defender.set_tanks(result_defender.get_tanks() + this.defender.get_tanks() - defender.get_tanks());
+        result_defender.set_fighters(result_defender.get_fighters() + this.defender.get_fighters() - defender.get_fighters());
+        result_defender.set_bombers(result_defender.get_bombers() + this.defender.get_bombers() - defender.get_bombers());
 
         if(defender.land_battle_units() == 0 &&
-           attacker.infantry + attacker.artillery + attacker.tanks > 0)
+           attacker.get_infantry() + attacker.get_artillery() + attacker.get_tanks() > 0)
             result.set_attacker_won(result.get_attacker_won()+1);
         else
             result.set_defender_won(result.get_defender_won()+1);

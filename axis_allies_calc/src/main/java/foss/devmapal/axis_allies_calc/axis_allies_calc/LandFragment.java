@@ -67,19 +67,19 @@ public class LandFragment extends Fragment {
     private void setFields(View view) {
         // Initialize attacker input fields
         EditText et = (EditText) view.findViewById(R.id.a_infantry);
-        et.setText(Integer.toString(attacker.infantry));
+        et.setText(Integer.toString(attacker.get_infantry()));
         et = (EditText) view.findViewById(R.id.a_artillery);
-        et.setText(Integer.toString(attacker.artillery));
+        et.setText(Integer.toString(attacker.get_artillery()));
         et = (EditText) view.findViewById(R.id.a_tanks);
-        et.setText(Integer.toString(attacker.tanks));
+        et.setText(Integer.toString(attacker.get_tanks()));
         et = (EditText) view.findViewById(R.id.a_fighters);
-        et.setText(Integer.toString(attacker.fighters));
+        et.setText(Integer.toString(attacker.get_fighters()));
         et = (EditText) view.findViewById(R.id.a_bombers);
-        et.setText(Integer.toString(attacker.bombers));
+        et.setText(Integer.toString(attacker.get_bombers()));
         et = (EditText) view.findViewById(R.id.a_battleships);
-        et.setText(Integer.toString(attacker.battleships));
+        et.setText(Integer.toString(attacker.get_battleships()));
         et = (EditText) view.findViewById(R.id.a_destroyers);
-        et.setText(Integer.toString(attacker.destroyers));
+        et.setText(Integer.toString(attacker.get_destroyers()));
         CheckBox cb = (CheckBox) view.findViewById(R.id.combined_bombardment);
         cb.setChecked(attacker_wd.combined_bombardment);
         cb = (CheckBox) view.findViewById(R.id.heavy_bombers);
@@ -87,17 +87,17 @@ public class LandFragment extends Fragment {
 
         // Initialize defender input fields
         et = (EditText) view.findViewById(R.id.d_infantry);
-        et.setText(Integer.toString(defender.infantry));
+        et.setText(Integer.toString(defender.get_infantry()));
         et = (EditText) view.findViewById(R.id.d_artillery);
-        et.setText(Integer.toString(defender.artillery));
+        et.setText(Integer.toString(defender.get_artillery()));
         et = (EditText) view.findViewById(R.id.d_tanks);
-        et.setText(Integer.toString(defender.tanks));
+        et.setText(Integer.toString(defender.get_tanks()));
         et = (EditText) view.findViewById(R.id.d_fighters);
-        et.setText(Integer.toString(defender.fighters));
+        et.setText(Integer.toString(defender.get_fighters()));
         et = (EditText) view.findViewById(R.id.d_bombers);
-        et.setText(Integer.toString(defender.bombers));
+        et.setText(Integer.toString(defender.get_bombers()));
         cb = (CheckBox) view.findViewById(R.id.d_antiaircraft);
-        cb.setChecked(defender.antiaircraft_gun);
+        cb.setChecked(defender.get_antiaircraftguns() != 0);
         cb = (CheckBox) view.findViewById(R.id.jet_fighters);
         cb.setChecked(defender_wd.jet_fighters);
     }
@@ -106,89 +106,89 @@ public class LandFragment extends Fragment {
         // Save attacker unit count
         EditText et = (EditText) view.findViewById(R.id.a_infantry);
         try {
-            attacker.infantry = Integer.parseInt(et.getText().toString());
-            if(attacker.infantry < 0) attacker.infantry = 0;
+            attacker.set_infantry(Integer.parseInt(et.getText().toString()));
+            if(attacker.get_infantry() < 0) attacker.set_infantry(0);
         } catch (NullPointerException e) {
-            attacker.infantry = 0;
+            attacker.set_infantry(0);
         }
         et = (EditText) view.findViewById(R.id.a_artillery);
         try {
-            attacker.artillery = Integer.parseInt(et.getText().toString());
-            if(attacker.artillery < 0) attacker.artillery = 0;
+            attacker.set_artillery(Integer.parseInt(et.getText().toString()));
+            if(attacker.get_artillery() < 0) attacker.set_artillery(0);
         } catch (NullPointerException e) {
-            attacker.artillery = 0;
+            attacker.set_artillery(0);
         }
         et = (EditText) view.findViewById(R.id.a_tanks);
         try {
-            attacker.tanks = Integer.parseInt(et.getText().toString());
-            if(attacker.tanks < 0) attacker.tanks = 0;
+            attacker.set_tanks(Integer.parseInt(et.getText().toString()));
+            if(attacker.get_tanks() < 0) attacker.set_tanks(0);
         } catch (NullPointerException e) {
-            attacker.tanks = 0;
+            attacker.set_tanks(0);
         }
         et = (EditText) view.findViewById(R.id.a_fighters);
         try {
-            attacker.fighters = Integer.parseInt(et.getText().toString());
-            if(attacker.fighters < 0) attacker.fighters = 0;
+            attacker.set_fighters(Integer.parseInt(et.getText().toString()));
+            if(attacker.get_fighters() < 0) attacker.set_fighters(0);
         } catch (NullPointerException e) {
-            attacker.fighters = 0;
+            attacker.set_fighters(0);
         }
         et = (EditText) view.findViewById(R.id.a_bombers);
         try {
-            attacker.bombers = Integer.parseInt(et.getText().toString());
-            if(attacker.bombers < 0) attacker.bombers = 0;
+            attacker.set_bombers(Integer.parseInt(et.getText().toString()));
+            if(attacker.get_bombers() < 0) attacker.set_bombers(0);
         } catch (NullPointerException e) {
-            attacker.bombers = 0;
+            attacker.set_bombers(0);
         }
         et = (EditText) view.findViewById(R.id.a_battleships);
         try {
-            attacker.battleships = Integer.parseInt(et.getText().toString());
-            if(attacker.battleships < 0) attacker.battleships = 0;
+            attacker.set_battleships(Integer.parseInt(et.getText().toString()));
+            if(attacker.get_battleships() < 0) attacker.set_battleships(0);
         } catch (NullPointerException e) {
-            attacker.battleships = 0;
+            attacker.set_battleships(0);
         }
         et = (EditText) view.findViewById(R.id.a_destroyers);
         try {
-            attacker.destroyers = Integer.parseInt(et.getText().toString());
-            if(attacker.destroyers < 0) attacker.destroyers = 0;
+            attacker.set_destroyers(Integer.parseInt(et.getText().toString()));
+            if(attacker.get_destroyers() < 0) attacker.set_destroyers(0);
         } catch (NullPointerException e) {
-            attacker.destroyers = 0;
+            attacker.set_destroyers(0);
         }
 
         // Save defender unit count
         et = (EditText) view.findViewById(R.id.d_infantry);
         try {
-            defender.infantry = Integer.parseInt(et.getText().toString());
-            if(defender.infantry < 0) defender.infantry = 0;
+            defender.set_infantry(Integer.parseInt(et.getText().toString()));
+            if(defender.get_infantry() < 0) defender.set_infantry(0);
         } catch (NullPointerException e) {
-            defender.infantry = 0;
+            defender.set_infantry(0);
         }
         et = (EditText) view.findViewById(R.id.d_artillery);
         try {
-            defender.artillery = Integer.parseInt(et.getText().toString());
-            if(defender.artillery < 0) defender.artillery = 0;
+            defender.set_artillery(Integer.parseInt(et.getText().toString()));
+            if(defender.get_artillery() < 0) defender.set_artillery(0);
         } catch (NullPointerException e) {
-            defender.artillery = 0;
+            defender.set_artillery(0);
         }
         et = (EditText) view.findViewById(R.id.d_tanks);
         try {
-            defender.tanks = Integer.parseInt(et.getText().toString());
-            if(defender.tanks < 0) defender.tanks = 0;
+            defender.set_tanks(Integer.parseInt(et.getText().toString()));
+            if(defender.get_tanks() < 0) defender.set_tanks(0);
         } catch (NullPointerException e) {
-            defender.tanks = 0;
+            defender.set_tanks(0);
         }
         et = (EditText) view.findViewById(R.id.d_fighters);
         try {
-            defender.fighters = Integer.parseInt(et.getText().toString());
-            if(defender.fighters < 0) defender.fighters = 0;
+            defender.set_fighters(Integer.parseInt(et.getText().toString()));
+            if(defender.get_fighters() < 0) defender.set_fighters(0);
         } catch (NullPointerException e) {
-            defender.fighters = 0;
+            defender.set_fighters(0);
         }
         et = (EditText) view.findViewById(R.id.d_bombers);
         try {
-            defender.bombers = Integer.parseInt(et.getText().toString());
-            if(defender.bombers < 0) defender.bombers = 0;
+            defender.set_bombers(Integer.parseInt(et.getText().toString()));
+            if(defender.get_bombers() < 0) defender.set_bombers(0);
         } catch (NullPointerException e) {
-            defender.bombers = 0;
+            defender.set_bombers(0);
         }
     }
 
@@ -239,7 +239,7 @@ public class LandFragment extends Fragment {
         antiaircraft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                defender.antiaircraft_gun = ((CheckBox) v).isChecked();
+                defender.set_antiaircraftguns(((CheckBox) v).isChecked() ? 1 : 0);
             }
         });
         CheckBox jet_fighters = (CheckBox) view.findViewById(R.id.jet_fighters);
