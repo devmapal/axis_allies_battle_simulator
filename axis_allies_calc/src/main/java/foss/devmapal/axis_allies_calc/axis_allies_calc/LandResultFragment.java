@@ -165,7 +165,8 @@ public class LandResultFragment extends ListFragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            mListener.onFragmentInteraction("");
+            if(mListener != null)
+                mListener.onFragmentInteraction("");
             finished = true;
         }
     }

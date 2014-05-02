@@ -66,8 +66,11 @@ public class LandBattleSimulation extends Battle {
     }
 
     private int calc_attacker_hits(Army attacker) {
-        int hits = calc_hits(attacker.get_infantry(), Infantry.attack);
-        hits += calc_hits(attacker.get_artillery(), Artillery.attack);
+        int infantry = Math.max(attacker.get_infantry() - attacker.get_artillery(), 0);
+        int artillery = attacker.get_artillery() +
+                        Math.min(attacker.get_artillery(), attacker.get_infantry());
+        int hits = calc_hits(infantry, Infantry.attack);
+        hits += calc_hits(artillery, Artillery.attack);
         hits += calc_hits(attacker.get_tanks(), Tank.attack);
         hits += calc_hits(attacker.get_fighters(), Fighter.attack);
         hits += calc_hits(attacker.get_bombers(), Bomber.attack);
