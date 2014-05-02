@@ -54,4 +54,41 @@ public class SimulationTest extends InstrumentationTestCase {
         assertTrue(attacker_won/expected_result > 1 - TOLERANCE);
         assertTrue(attacker_won/expected_result < 1 + TOLERANCE);
     }
+
+    public void testNoUnits() throws Exception {
+        Army attacker = new Army();
+        WeaponsDevelopment attacker_wd = new WeaponsDevelopment();
+        Army defender = new Army();
+        WeaponsDevelopment defender_wd = new WeaponsDevelopment();
+        LandBattleSimulation battle = new LandBattleSimulation(attacker,
+                attacker_wd,
+                defender,
+                defender_wd,
+                1000000,
+                true);
+
+        BattleResult result = battle.run();
+        double attacker_won = ((double) result.get_attacker_won())/result.get_sim_iters()*100;
+        double expected_result = 0;
+        assertEquals(attacker_won, expected_result);
+    }
+
+    public void testNoDefender() throws Exception {
+        Army attacker = new Army();
+        attacker.set_tanks(1);
+        WeaponsDevelopment attacker_wd = new WeaponsDevelopment();
+        Army defender = new Army();
+        WeaponsDevelopment defender_wd = new WeaponsDevelopment();
+        LandBattleSimulation battle = new LandBattleSimulation(attacker,
+                attacker_wd,
+                defender,
+                defender_wd,
+                1000000,
+                true);
+
+        BattleResult result = battle.run();
+        double attacker_won = ((double) result.get_attacker_won())/result.get_sim_iters()*100;
+        double expected_result = 100;
+        assertEquals(attacker_won, expected_result);
+    }
 }
