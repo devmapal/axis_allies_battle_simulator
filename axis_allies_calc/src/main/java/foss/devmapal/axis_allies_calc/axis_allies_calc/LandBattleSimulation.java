@@ -81,7 +81,10 @@ public class LandBattleSimulation extends Battle {
         int hits = calc_hits(defender.get_infantry(), Infantry.defense);
         hits += calc_hits(defender.get_artillery(), Artillery.defense);
         hits += calc_hits(defender.get_tanks(), Tank.defense);
-        hits += calc_hits(defender.get_fighters(), Fighter.defense);
+        if(defender_wd.jet_fighters)
+            hits += calc_hits(defender.get_fighters(), Fighter.defense + 1);
+        else
+            hits += calc_hits(defender.get_fighters(), Fighter.defense);
         hits += calc_hits(defender.get_bombers(), Bomber.defense);
 
         return hits;
