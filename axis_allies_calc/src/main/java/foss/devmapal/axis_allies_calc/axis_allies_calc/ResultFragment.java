@@ -1,6 +1,7 @@
 package foss.devmapal.axis_allies_calc.axis_allies_calc;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class ResultFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         if (getArguments() != null) {
             land_battle = getArguments().getBoolean(ARG_LAND_BATTLE);
             extras = getArguments().getBundle(ARG_EXTRAS);
@@ -56,10 +58,14 @@ public class ResultFragment extends Fragment {
         linlaComputeProgress = (LinearLayout) view.findViewById(R.id.linlaComputeProgress);
         linlaComputeProgress.setVisibility(View.VISIBLE);
         if(land_battle == true) {
-            result_fragment = LandResultFragment.newInstance(extras);
-            FragmentTransaction ft_child = getChildFragmentManager().beginTransaction();
-            ft_child.replace(R.id.result_fragment_container, result_fragment);
-            ft_child.commit();
+            FragmentManager fm = getChildFragmentManager();
+            result_fragment = (LandResultFragment) fm.findFragmentById(R.id.result_fragment_container);
+            if(result_fragment == null) {
+                result_fragment = LandResultFragment.newInstance(extras);
+                FragmentTransaction ft_child = getChildFragmentManager().beginTransaction();
+                ft_child.replace(R.id.result_fragment_container, result_fragment);
+                ft_child.commit();
+            }
         }
         return view;
     }

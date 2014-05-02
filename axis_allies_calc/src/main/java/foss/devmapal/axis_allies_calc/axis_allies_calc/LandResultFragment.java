@@ -9,6 +9,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import static junit.framework.Assert.assertNotNull;
+
 
 /**
  * A fragment representing a list of Items.
@@ -88,6 +90,7 @@ public class LandResultFragment extends ListFragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        mListener = null;
     }
 
     public void sim_battle() {

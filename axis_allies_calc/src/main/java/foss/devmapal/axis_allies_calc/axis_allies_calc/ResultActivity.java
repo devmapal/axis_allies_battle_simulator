@@ -1,6 +1,7 @@
 package foss.devmapal.axis_allies_calc.axis_allies_calc;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,10 +16,14 @@ public class ResultActivity extends Activity implements LandResultFragment.OnFra
         Bundle extras = getIntent().getExtras();
         setContentView(R.layout.activity_result);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        frag = ResultFragment.newInstance(extras, true);
-        ft.add(R.id.result_container, frag);
-        ft.commit();
+        FragmentManager fm = getFragmentManager();
+        frag = (ResultFragment) fm.findFragmentById(R.id.result_container);
+        if( frag == null ) {
+            frag = ResultFragment.newInstance(extras, true);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.add(R.id.result_container, frag);
+            ft.commit();
+        }
     }
 
     @Override
