@@ -90,6 +90,24 @@ public class LandBattleSimulation extends Battle {
         return hits;
     }
 
+    private int calc_attacker_opening_fire(Army attacker) {
+        int hits = calc_hits(attacker.get_battleships(), Battleship.attack);
+        if(attacker_wd.combined_bombardment)
+            hits += calc_hits(attacker.get_destroyers(), Destroyer.attack);
+
+        return hits;
+    }
+
+    private int calc_defender_opening_fire(Army attacker, Army defender) {
+        int hits = 0;
+        if(defender.get_antiaircraftguns() > 0) {
+            hits += calc_hits(attacker.get_fighters() + attacker.get_bombers(),
+                              AntiaircraftGun.defense);
+        }
+
+        return hits;
+    }
+
     private void apply_hits_on_attacker(Army attacker, int defender_hits) {
         for(int unit_id : attacker_hit_order) {
             if(defender_hits == 0)
@@ -126,6 +144,25 @@ public class LandBattleSimulation extends Battle {
         }
     }
 
+    private void apply_antiaircraft_hits(Army attacker, int defender_hits) {
+        for(int unit_id : attacker_hit_order) {
+            if(defender_hits == 0)
+                return;
+            if(unit_id == Fighter.id || unit_id == Bomber.id) {
+                Integer attacker_units = attacker.get(unit_id);
+                assertNotNull(attacker_units);
+                if (attacker_units > defender_hits) {
+                    attacker_units -= defender_hits;
+                    attacker.set(unit_id, attacker_units);
+                    return;
+                } else {
+                    defender_hits -= attacker_units;
+                    attacker.set(unit_id, 0);
+                }
+            }
+        }
+    }
+
     private void apply_hits_on_defender(Army defender, int attacker_hits) {
         for (int unit_id : defender_hit_order) {
             Integer defender_units = defender.get(unit_id);
@@ -145,10 +182,14 @@ public class LandBattleSimulation extends Battle {
         Army attacker = new Army(this.attacker);
         Army defender = new Army(this.defender);
 
+        int attacker_hits = calc_attacker_opening_fire(attacker);
+        int defender_hits = calc_defender_opening_fire(attacker, defender);
+        apply_antiaircraft_hits(attacker, defender_hits);
+        apply_hits_on_defender(defender, attacker_hits);
         while(attacker.land_battle_units() > 0 &&
                 defender.land_battle_units() > 0) {
-            int attacker_hits = calc_attacker_hits(attacker);
-            int defender_hits = calc_defender_hits(defender);
+            attacker_hits = calc_attacker_hits(attacker);
+            defender_hits = calc_defender_hits(defender);
             apply_hits_on_attacker(attacker, defender_hits);
             apply_hits_on_defender(defender, attacker_hits);
         }
