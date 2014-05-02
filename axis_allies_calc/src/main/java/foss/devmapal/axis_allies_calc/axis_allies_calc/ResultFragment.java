@@ -83,4 +83,7 @@ public class ResultFragment extends Fragment {
     public void hide_progress() {
         linlaComputeProgress.setVisibility(View.GONE);
     }
+
+    public void show_progress() {
+    }
 }

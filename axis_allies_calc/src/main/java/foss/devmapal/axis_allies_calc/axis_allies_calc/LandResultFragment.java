@@ -35,6 +35,8 @@ public class LandResultFragment extends ListFragment {
 
     private Tuple<String, String>[] result_items;
 
+    private ComputeBattleTask task;
+
 
     public static LandResultFragment newInstance(Bundle extras) {
         LandResultFragment fragment = new LandResultFragment();
@@ -71,8 +73,13 @@ public class LandResultFragment extends ListFragment {
         ArrayAdapter mAdapter;
         mAdapter = new ResultItemAdapter(getActivity(), result_items);
 
-        ComputeBattleTask task = new ComputeBattleTask();
-        task.execute();
+        if(task == null) {
+            task = new ComputeBattleTask();
+            task.execute();
+        }
+        else if(task.finished) {
+            mListener.onFragmentInteraction("");
+        }
         setListAdapter(mAdapter);
     }
 
@@ -142,6 +149,7 @@ public class LandResultFragment extends ListFragment {
     }
 
     private class ComputeBattleTask extends AsyncTask<Void, Void, Void> {
+        public boolean finished = false;
 
         @Override
         protected void onPreExecute() {
@@ -158,6 +166,7 @@ public class LandResultFragment extends ListFragment {
         @Override
         protected void onPostExecute(Void result) {
             mListener.onFragmentInteraction("");
+            finished = true;
         }
     }
 
