@@ -63,7 +63,8 @@ public class MainActivity extends Activity
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+        //mTitle = getTitle();
+        mTitle = getString(R.string.title_land_battle);
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
@@ -90,11 +91,13 @@ public class MainActivity extends Activity
         nav_pos = position;
         switch(position) {
             case 0:
+                mTitle = getString(R.string.title_land_battle);
                 ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.container, land_fragment);
                 ft.commit();
                 break;
             case 1:
+                mTitle = getString(R.string.title_naval_battle);
                 ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.container, naval_fragment);
                 ft.commit();
@@ -112,17 +115,6 @@ public class MainActivity extends Activity
                 i.putExtra("defender", land_fragment.getDefender());
                 i.putExtra("defender_wd", land_fragment.getDefender_wd());
                 startActivity(i);
-                break;
-        }
-    }
-
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.title_land_battle);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_naval_battle);
                 break;
         }
     }
