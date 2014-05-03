@@ -1,5 +1,6 @@
 package foss.devmapal.axis_allies_calc.axis_allies_calc.test;
 
+import android.os.AsyncTask;
 import android.test.InstrumentationTestCase;
 
 import foss.devmapal.axis_allies_calc.axis_allies_calc.Army;
@@ -20,7 +21,15 @@ public class SimulationTest extends InstrumentationTestCase {
         Army defender = new Army();
         defender.set_infantry(1);
         WeaponsDevelopment defender_wd = new WeaponsDevelopment();
-        LandBattleSimulation battle = new LandBattleSimulation(attacker,
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                return null;
+            }
+        };
+        LandBattleSimulation battle = new LandBattleSimulation(
+                task,
+                attacker,
                 attacker_wd,
                 defender,
                 defender_wd,
@@ -41,7 +50,15 @@ public class SimulationTest extends InstrumentationTestCase {
         Army defender = new Army();
         defender.set_tanks(1);
         WeaponsDevelopment defender_wd = new WeaponsDevelopment();
-        LandBattleSimulation battle = new LandBattleSimulation(attacker,
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                return null;
+            }
+        };
+        LandBattleSimulation battle = new LandBattleSimulation(
+                task,
+                attacker,
                 attacker_wd,
                 defender,
                 defender_wd,
@@ -60,7 +77,15 @@ public class SimulationTest extends InstrumentationTestCase {
         WeaponsDevelopment attacker_wd = new WeaponsDevelopment();
         Army defender = new Army();
         WeaponsDevelopment defender_wd = new WeaponsDevelopment();
-        LandBattleSimulation battle = new LandBattleSimulation(attacker,
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                return null;
+            }
+        };
+        LandBattleSimulation battle = new LandBattleSimulation(
+                task,
+                attacker,
                 attacker_wd,
                 defender,
                 defender_wd,
@@ -79,7 +104,15 @@ public class SimulationTest extends InstrumentationTestCase {
         WeaponsDevelopment attacker_wd = new WeaponsDevelopment();
         Army defender = new Army();
         WeaponsDevelopment defender_wd = new WeaponsDevelopment();
-        LandBattleSimulation battle = new LandBattleSimulation(attacker,
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                return null;
+            }
+        };
+        LandBattleSimulation battle = new LandBattleSimulation(
+                task,
+                attacker,
                 attacker_wd,
                 defender,
                 defender_wd,

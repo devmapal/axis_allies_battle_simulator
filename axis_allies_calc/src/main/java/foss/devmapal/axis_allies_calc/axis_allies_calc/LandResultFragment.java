@@ -100,6 +100,14 @@ public class LandResultFragment extends ListFragment {
         mListener = null;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(task != null) {
+            task.cancel(true);
+        }
+    }
+
     public void sim_battle() {
         if (BuildConfig.DEBUG) {
             Log.d(Constants.LOG, "Calculating battle");
@@ -110,12 +118,17 @@ public class LandResultFragment extends ListFragment {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
         boolean take_territory = sp.getBoolean(getString(R.string.key_pref_take_territory), true);
         int sim_iters = Integer.parseInt(sp.getString(getString(R.string.key_pref_sim_iters), "100000"));
-        LandBattleSimulation battle = new LandBattleSimulation(attacker,
+        LandBattleSimulation battle = new LandBattleSimulation(
+                task,
+                attacker,
                 attacker_wd,
                 defender,
                 defender_wd,
                 sim_iters,
                 take_territory);
+
+        if(task.isCancelled())
+            return;
 
         BattleResult result = battle.run();
         double attacker_won = ((double) result.get_attacker_won())/result.get_sim_iters()*100;

@@ -19,14 +19,17 @@ public class LandBattleSimulation extends Battle {
     private boolean take_territory;
     private List<Integer> attacker_hit_order;
     private List<Integer> defender_hit_order;
+    private AsyncTask<Void, Void, Void> task;
 
-    public LandBattleSimulation(Army attacker,
+    public LandBattleSimulation(AsyncTask<Void, Void, Void> task,
+                                Army attacker,
                                 WeaponsDevelopment attacker_wd,
                                 Army defender,
                                 WeaponsDevelopment defender_wd,
                                 int sim_iters,
                                 boolean take_territory) {
         super(attacker, attacker_wd, defender, defender_wd, sim_iters);
+        this.task = task;
         this.take_territory = take_territory;
         
         attacker_hit_order = new ArrayList<Integer>(5);
@@ -50,6 +53,8 @@ public class LandBattleSimulation extends Battle {
         // Simulate sim_iters battles
         for(int i = 0; i < sim_iters; ++i) {
             sim_battle(result);
+            if(task.isCancelled())
+                break;
         }
 
         return result;
