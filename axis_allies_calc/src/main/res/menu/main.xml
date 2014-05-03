@@ -4,7 +4,7 @@
     <item android:id="@+id/action_run"
         android:icon="@android:drawable/ic_menu_send"
         android:title="@string/action_run"
-        android:showAsAction="withText|ifRoom" />
+        android:showAsAction="ifRoom" />
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
