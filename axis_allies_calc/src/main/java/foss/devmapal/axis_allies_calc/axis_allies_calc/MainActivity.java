@@ -36,6 +36,9 @@ public class MainActivity extends Activity
     private LandFragment land_fragment;
     private NavalFragment naval_fragment;
 
+    /**
+     * Used to store the current nav position (LandBattle / NavalBattle)
+     */
     private int nav_pos;
 
     @Override
@@ -143,14 +146,18 @@ public class MainActivity extends Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Intent i = new Intent(this, SettingsActivity.class);
-            startActivity(i);
-            return true;
+        switch(item.getItemId()) {
+            case R.id.action_settings:
+                Intent i = new Intent(this, SettingsActivity.class);
+                startActivity(i);
+                return true;
+            case R.id.action_clear:
+                switch(nav_pos) {
+                    case 0:
+                        land_fragment.clear_fields();
+                        break;
+                }
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

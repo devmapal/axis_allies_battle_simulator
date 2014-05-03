@@ -216,6 +216,15 @@ public class LandFragment extends Fragment {
         return new WeaponsDevelopment(defender_wd);
     }
 
+    public void clear_fields() {
+        attacker = new Army();
+        attacker_wd = new WeaponsDevelopment();
+        defender = new Army();
+        defender_wd = new WeaponsDevelopment();
+
+        setFields(getView());
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
