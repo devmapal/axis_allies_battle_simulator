@@ -4,7 +4,9 @@ import android.app.Activity;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,10 +55,7 @@ public class MainActivity extends Activity
                     (WeaponsDevelopment) savedInstanceState.getSerializable(ARG_DEFENDER_WD));
             naval_fragment = NavalFragment.newInstance();
         } else {
-            land_fragment = LandFragment.newInstance(new Army(),
-                    new WeaponsDevelopment(),
-                    new Army(),
-                    new WeaponsDevelopment());
+            restore_state_from_preference();
             naval_fragment = NavalFragment.newInstance();
         }
 
@@ -85,6 +84,104 @@ public class MainActivity extends Activity
         savedInstanceState.putSerializable(ARG_DEFENDER_WD, land_fragment.getDefender_wd());
 
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        save_state_to_preference();
+    }
+
+    private void restore_state_from_preference() {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        int defaultValue = 0;
+        boolean defaultBool = false;
+
+        Army attacker = new Army(
+                sharedPref.getInt("a_land_" + Infantry.name, defaultValue),
+                sharedPref.getInt("a_land_" + Artillery.name, defaultValue),
+                sharedPref.getInt("a_land_" + Tank.name, defaultValue),
+                sharedPref.getInt("a_land_" + Fighter.name, defaultValue),
+                sharedPref.getInt("a_land_" + Bomber.name, defaultValue),
+                sharedPref.getInt("a_land_" + Battleship.name, defaultValue),
+                sharedPref.getInt("a_land_" + Destroyer.name, defaultValue),
+                defaultValue,
+                defaultValue,
+                sharedPref.getInt("a_land_" + AntiaircraftGun.name, defaultValue)
+        );
+
+        WeaponsDevelopment attacker_wd = new WeaponsDevelopment(
+                sharedPref.getBoolean("a_land_" + getString(R.string.jet_fighters), defaultBool),
+                defaultBool,
+                sharedPref.getBoolean("a_land_" + getString(R.string.combined_bombardment), defaultBool),
+                sharedPref.getBoolean("a_land_" + getString(R.string.heavy_bombers), defaultBool)
+        );
+
+        Army defender = new Army(
+                sharedPref.getInt("d_land_" + Infantry.name, defaultValue),
+                sharedPref.getInt("d_land_" + Artillery.name, defaultValue),
+                sharedPref.getInt("d_land_" + Tank.name, defaultValue),
+                sharedPref.getInt("d_land_" + Fighter.name, defaultValue),
+                sharedPref.getInt("d_land_" + Bomber.name, defaultValue),
+                sharedPref.getInt("d_land_" + Battleship.name, defaultValue),
+                sharedPref.getInt("d_land_" + Destroyer.name, defaultValue),
+                defaultValue,
+                defaultValue,
+                sharedPref.getInt("d_land_" + AntiaircraftGun.name, defaultValue)
+        );
+
+        WeaponsDevelopment defender_wd = new WeaponsDevelopment(
+                sharedPref.getBoolean("d_land_" + getString(R.string.jet_fighters), defaultBool),
+                defaultBool,
+                sharedPref.getBoolean("d_land_" + getString(R.string.combined_bombardment), defaultBool),
+                sharedPref.getBoolean("d_land_" + getString(R.string.heavy_bombers), defaultBool)
+        );
+
+        land_fragment = LandFragment.newInstance(
+                attacker,
+                attacker_wd,
+                defender,
+                defender_wd);
+    }
+
+    private void save_state_to_preference() {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        View view = land_fragment.getView();
+        land_fragment.getFields(view);
+
+        Army attacker = land_fragment.getAttacker();
+        editor.putInt("a_land_" + Infantry.name, attacker.get_infantry());
+        editor.putInt("a_land_" + Artillery.name, attacker.get_artillery());
+        editor.putInt("a_land_" + Tank.name, attacker.get_tanks());
+        editor.putInt("a_land_" + Fighter.name, attacker.get_fighters());
+        editor.putInt("a_land_" + Bomber.name, attacker.get_bombers());
+        editor.putInt("a_land_" + Battleship.name, attacker.get_battleships());
+        editor.putInt("a_land_" + Destroyer.name, attacker.get_destroyers());
+        editor.putInt("a_land_" + AntiaircraftGun.name, attacker.get_antiaircraftguns());
+
+        WeaponsDevelopment attacker_wd = land_fragment.getAttacker_wd();
+        editor.putBoolean("a_land_" + getString(R.string.jet_fighters), attacker_wd.jet_fighters);
+        editor.putBoolean("a_land_" + getString(R.string.combined_bombardment), attacker_wd.combined_bombardment);
+        editor.putBoolean("a_land_" + getString(R.string.heavy_bombers), attacker_wd.heavy_bombers);
+
+        Army defender = land_fragment.getDefender();
+        editor.putInt("d_land_" + Infantry.name, defender.get_infantry());
+        editor.putInt("d_land_" + Artillery.name, defender.get_artillery());
+        editor.putInt("d_land_" + Tank.name, defender.get_tanks());
+        editor.putInt("d_land_" + Fighter.name, defender.get_fighters());
+        editor.putInt("d_land_" + Bomber.name, defender.get_bombers());
+        editor.putInt("d_land_" + Battleship.name, defender.get_battleships());
+        editor.putInt("d_land_" + Destroyer.name, defender.get_destroyers());
+        editor.putInt("d_land_" + AntiaircraftGun.name, defender.get_antiaircraftguns());
+
+        WeaponsDevelopment defender_wd = land_fragment.getDefender_wd();
+        editor.putBoolean("d_land_" + getString(R.string.jet_fighters), defender_wd.jet_fighters);
+        editor.putBoolean("d_land_" + getString(R.string.combined_bombardment), defender_wd.combined_bombardment);
+        editor.putBoolean("d_land_" + getString(R.string.heavy_bombers), defender_wd.heavy_bombers);
+
+        editor.commit();
     }
 
     @Override
