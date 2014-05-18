@@ -1,13 +1,14 @@
 package foss.devmapal.axis_allies_calc.axis_allies_calc;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.util.Log;
 
 /**
  * A fragment representing a list of Items.
@@ -29,21 +30,6 @@ public class LandFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public static LandFragment newInstance(Army attacker,
-                                           WeaponsDevelopment attacker_wd,
-                                           Army defender,
-                                           WeaponsDevelopment defender_wd) {
-        LandFragment fragment = new LandFragment();
-        Bundle args = new Bundle();
-
-        args.putSerializable(ARG_ATTACKER, attacker);
-        args.putSerializable(ARG_ATTACKER_WD, attacker_wd);
-        args.putSerializable(ARG_DEFENDER, defender);
-        args.putSerializable(ARG_DEFENDER_WD, defender_wd);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -60,7 +46,10 @@ public class LandFragment extends Fragment {
             attacker_wd = (WeaponsDevelopment) getArguments().getSerializable(ARG_ATTACKER_WD);
             defender = (Army) getArguments().getSerializable(ARG_DEFENDER);
             defender_wd = (WeaponsDevelopment) getArguments().getSerializable(ARG_DEFENDER_WD);
+        }
 
+        if (BuildConfig.DEBUG) {
+            Log.e(Constants.LOG, "onCreate");
         }
     }
 
@@ -193,26 +182,18 @@ public class LandFragment extends Fragment {
     }
 
     public Army getAttacker() {
-        View view = getView();
-        getFields(view);
         return new Army(attacker);
     }
 
     public WeaponsDevelopment getAttacker_wd() {
-        View view = getView();
-        getFields(view);
         return new WeaponsDevelopment(attacker_wd);
     }
 
     public Army getDefender() {
-        View view = getView();
-        getFields(view);
         return new Army(defender);
     }
 
     public WeaponsDevelopment getDefender_wd() {
-        View view = getView();
-        getFields(view);
         return new WeaponsDevelopment(defender_wd);
     }
 
@@ -261,6 +242,10 @@ public class LandFragment extends Fragment {
 
         setFields(view);
 
+        if (BuildConfig.DEBUG) {
+            Log.e(Constants.LOG, "onCreateView");
+        }
+
         return view;
     }
 
@@ -273,17 +258,35 @@ public class LandFragment extends Fragment {
             throw new ClassCastException(activity.toString()
                 + " must implement OnFragmentInteractionListener");
         }
+
+        if (BuildConfig.DEBUG) {
+            Log.e(Constants.LOG, "onAttach");
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+
+        if (BuildConfig.DEBUG) {
+            Log.e(Constants.LOG, "onDetach");
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        getFields(getView());
+        mListener.onSaveState(getString(R.string.title_land_battle),
+                attacker,
+                attacker_wd,
+                defender,
+                defender_wd);
+
+        if (BuildConfig.DEBUG) {
+            Log.e(Constants.LOG, "onPause");
+        }
     }
 
     /**
@@ -297,7 +300,11 @@ public class LandFragment extends Fragment {
     * >Communicating with Other Fragments</a> for more information.
     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        public void onSaveState(String id, Army attacker, WeaponsDevelopment attacker_wd,
+                                           Army defender, WeaponsDevelopment defender_wd);
+    }
+
+    public interface Constants {
+        String LOG = "foss.devmapal.axis_allies_calc.axis_allies_calc.LandFragment";
     }
 }

@@ -1,12 +1,11 @@
 package foss.devmapal.axis_allies_calc.axis_allies_calc;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 /**
  * A fragment representing a list of Items.
