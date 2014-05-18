@@ -38,7 +38,7 @@ public class Army implements Serializable {
     }
 
     public Army(Army a) {
-        units = new int[10];
+        units = new int[11];
         units[Infantry.id] = a.units[Infantry.id];
         units[Artillery.id] = a.units[Artillery.id];
         units[Tank.id] = a.units[Tank.id];
