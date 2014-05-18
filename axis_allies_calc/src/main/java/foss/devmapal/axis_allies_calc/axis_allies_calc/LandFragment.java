@@ -219,36 +219,6 @@ public class LandFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.land_input, container, false);
-
-        CheckBox combined_bombardment = (CheckBox) view.findViewById(R.id.combined_bombardment);
-        combined_bombardment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attacker_wd.combined_bombardment = ((CheckBox) v).isChecked();
-            }
-        });
-        CheckBox heavy_bombers = (CheckBox) view.findViewById(R.id.heavy_bombers);
-        heavy_bombers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attacker_wd.heavy_bombers = ((CheckBox) v).isChecked();
-            }
-        });
-        CheckBox antiaircraft = (CheckBox) view.findViewById(R.id.d_antiaircraft);
-        antiaircraft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                defender.set_antiaircraftguns(((CheckBox) v).isChecked() ? 1 : 0);
-            }
-        });
-        CheckBox jet_fighters = (CheckBox) view.findViewById(R.id.jet_fighters);
-        jet_fighters.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                defender_wd.jet_fighters = ((CheckBox) v).isChecked();
-            }
-        });
-
         setFields(view);
 
         if (BuildConfig.DEBUG) {
