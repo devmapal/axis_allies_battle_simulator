@@ -45,10 +45,11 @@ public class MainActivity extends FragmentActivity
 
         land_fragment_data = new Bundle();
         naval_fragment_data = new Bundle();
+        int pos = LAND_POS;
         if(savedInstanceState != null) {
             restore_state_from_saved_instance_state(savedInstanceState);
         } else {
-            restore_state_from_preference();
+            pos = restore_state_from_preference();
         }
 
         mViewPager = new ViewPager(this);
@@ -67,6 +68,9 @@ public class MainActivity extends FragmentActivity
 
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", LAND_POS));
+        }
+        else {
+            bar.setSelectedNavigationItem(pos);
         }
         if (BuildConfig.DEBUG) {
             Log.e(Constants.LOG, "onCreate");
@@ -106,11 +110,12 @@ public class MainActivity extends FragmentActivity
         naval_fragment_data = savedInstanceState.getBundle(NAVAL_BATTLE);
     }
 
-    private void restore_state_from_preference() {
+    private int restore_state_from_preference() {
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         int defaultValue = 0;
         boolean defaultBool = false;
 
+        // Restore Land Battle input
         Army attacker = new Army(
                 sharedPref.getInt("a_land_" + Infantry.name, defaultValue),
                 sharedPref.getInt("a_land_" + Artillery.name, defaultValue),
@@ -157,12 +162,63 @@ public class MainActivity extends FragmentActivity
         land_fragment_data.putSerializable(ARG_ATTACKER_WD, attacker_wd);
         land_fragment_data.putSerializable(ARG_DEFENDER, defender);
         land_fragment_data.putSerializable(ARG_DEFENDER_WD, defender_wd);
+
+        // Restore Naval Battle input
+        attacker = new Army(
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                sharedPref.getInt("a_naval_" + Fighter.name, defaultValue),
+                sharedPref.getInt("a_naval_" + Bomber.name, defaultValue),
+                sharedPref.getInt("a_naval_" + Battleship.name, defaultValue),
+                sharedPref.getInt("a_naval_" + Destroyer.name, defaultValue),
+                sharedPref.getInt("a_naval_" + Aircraftcarrier.name, defaultValue),
+                sharedPref.getInt("a_naval_" + Transport.name, defaultValue),
+                sharedPref.getInt("a_naval_" + Submarine.name, defaultValue),
+                sharedPref.getInt("a_naval_" + AntiaircraftGun.name, defaultValue)
+        );
+
+        attacker_wd = new WeaponsDevelopment(
+                sharedPref.getBoolean("a_naval_" + getString(R.string.jet_fighters), defaultBool),
+                sharedPref.getBoolean("a_naval_" + getString(R.string.super_submarines), defaultBool),
+                defaultBool,
+                sharedPref.getBoolean("a_naval_" + getString(R.string.heavy_bombers), defaultBool)
+        );
+
+        defender = new Army(
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                sharedPref.getInt("d_naval_" + Fighter.name, defaultValue),
+                sharedPref.getInt("d_naval_" + Bomber.name, defaultValue),
+                sharedPref.getInt("d_naval_" + Battleship.name, defaultValue),
+                sharedPref.getInt("d_naval_" + Destroyer.name, defaultValue),
+                sharedPref.getInt("d_naval_" + Aircraftcarrier.name, defaultValue),
+                sharedPref.getInt("d_naval_" + Transport.name, defaultValue),
+                sharedPref.getInt("d_naval_" + Submarine.name, defaultValue),
+                sharedPref.getInt("d_naval_" + AntiaircraftGun.name, defaultValue)
+        );
+
+        defender_wd = new WeaponsDevelopment(
+                sharedPref.getBoolean("d_naval_" + getString(R.string.jet_fighters), defaultBool),
+                sharedPref.getBoolean("d_naval_" + getString(R.string.super_submarines), defaultBool),
+                defaultBool,
+                sharedPref.getBoolean("d_naval_" + getString(R.string.heavy_bombers), defaultBool)
+        );
+
+        naval_fragment_data.putSerializable(ARG_ATTACKER, attacker);
+        naval_fragment_data.putSerializable(ARG_ATTACKER_WD, attacker_wd);
+        naval_fragment_data.putSerializable(ARG_DEFENDER, defender);
+        naval_fragment_data.putSerializable(ARG_DEFENDER_WD, defender_wd);
+
+        return sharedPref.getInt("tab", LAND_POS);
     }
 
     private void save_state_to_preference() {
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
+        // Store land battle data
         Army attacker = (Army) land_fragment_data.getSerializable(ARG_ATTACKER);
         editor.putInt("a_land_" + Infantry.name, attacker.get_infantry());
         editor.putInt("a_land_" + Artillery.name, attacker.get_artillery());
@@ -192,6 +248,39 @@ public class MainActivity extends FragmentActivity
         editor.putBoolean("d_land_" + getString(R.string.jet_fighters), defender_wd.jet_fighters);
         editor.putBoolean("d_land_" + getString(R.string.combined_bombardment), defender_wd.combined_bombardment);
         editor.putBoolean("d_land_" + getString(R.string.heavy_bombers), defender_wd.heavy_bombers);
+
+        // Store naval battle data
+        attacker = (Army) naval_fragment_data.getSerializable(ARG_ATTACKER);
+        editor.putInt("a_naval_" + Fighter.name, attacker.get_fighters());
+        editor.putInt("a_naval_" + Bomber.name, attacker.get_bombers());
+        editor.putInt("a_naval_" + Battleship.name, attacker.get_battleships());
+        editor.putInt("a_naval_" + Destroyer.name, attacker.get_destroyers());
+        editor.putInt("a_naval_" + Aircraftcarrier.name, attacker.get_aircraftcarriers());
+        editor.putInt("a_naval_" + Transport.name, attacker.get_transports());
+        editor.putInt("a_naval_" + Submarine.name, attacker.get_submarines());
+        editor.putInt("a_naval_" + AntiaircraftGun.name, attacker.get_antiaircraftguns());
+
+        attacker_wd = (WeaponsDevelopment) naval_fragment_data.getSerializable(ARG_ATTACKER_WD);
+        editor.putBoolean("a_naval_" + getString(R.string.jet_fighters), attacker_wd.jet_fighters);
+        editor.putBoolean("a_naval_" + getString(R.string.super_submarines), attacker_wd.super_submarines);
+        editor.putBoolean("a_naval_" + getString(R.string.heavy_bombers), attacker_wd.heavy_bombers);
+
+        defender = (Army) naval_fragment_data.getSerializable(ARG_DEFENDER);
+        editor.putInt("d_naval_" + Fighter.name, defender.get_fighters());
+        editor.putInt("d_naval_" + Bomber.name, defender.get_bombers());
+        editor.putInt("d_naval_" + Battleship.name, defender.get_battleships());
+        editor.putInt("d_naval_" + Destroyer.name, defender.get_destroyers());
+        editor.putInt("d_naval_" + Aircraftcarrier.name, defender.get_aircraftcarriers());
+        editor.putInt("d_naval_" + Transport.name, defender.get_transports());
+        editor.putInt("d_naval_" + Submarine.name, defender.get_submarines());
+        editor.putInt("d_naval_" + AntiaircraftGun.name, defender.get_antiaircraftguns());
+
+        defender_wd = (WeaponsDevelopment) naval_fragment_data.getSerializable(ARG_DEFENDER_WD);
+        editor.putBoolean("d_naval_" + getString(R.string.jet_fighters), defender_wd.jet_fighters);
+        editor.putBoolean("d_naval_" + getString(R.string.super_submarines), defender_wd.super_submarines);
+        editor.putBoolean("d_naval_" + getString(R.string.heavy_bombers), defender_wd.heavy_bombers);
+
+        editor.putInt("tab", getActionBar().getSelectedNavigationIndex());
 
         editor.commit();
     }
@@ -235,6 +324,10 @@ public class MainActivity extends FragmentActivity
                                                         getFragment(R.id.viewpager, LAND_POS);
                         land_fragment.clear_fields();
                         break;
+                    case NAVAL_POS:
+                        NavalFragment naval_fragment = (NavalFragment) mTabsAdapter.
+                                                        getFragment(R.id.viewpager, NAVAL_POS);
+                        naval_fragment.clear_fields();
                 }
                 return true;
             case R.id.action_run:
@@ -243,11 +336,6 @@ public class MainActivity extends FragmentActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    public void onFragmentInteraction(String id) {
     }
 
     @Override
@@ -259,7 +347,10 @@ public class MainActivity extends FragmentActivity
             land_fragment_data.putSerializable(ARG_DEFENDER_WD, new WeaponsDevelopment(defender_wd));
         }
         else if(id.equals(getString(R.string.title_naval_battle))) {
-
+            naval_fragment_data.putSerializable(ARG_ATTACKER, new Army(attacker));
+            naval_fragment_data.putSerializable(ARG_ATTACKER_WD, new WeaponsDevelopment(attacker_wd));
+            naval_fragment_data.putSerializable(ARG_DEFENDER, new Army(defender));
+            naval_fragment_data.putSerializable(ARG_DEFENDER_WD, new WeaponsDevelopment(defender_wd));
         }
 
         if (BuildConfig.DEBUG) {
@@ -349,7 +440,7 @@ public class MainActivity extends FragmentActivity
 
         public Fragment getFragment(int viewId, int position) {
             FragmentManager fm = mContext.getSupportFragmentManager();
-            String tag = makeFragmentName(R.id.viewpager, LAND_POS);
+            String tag = makeFragmentName(viewId, position);
             return fm.findFragmentByTag(tag);
         }
     }

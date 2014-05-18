@@ -38,6 +38,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -66,6 +67,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -94,6 +96,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -122,6 +125,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -150,6 +154,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -178,6 +183,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -206,6 +212,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -261,6 +268,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -289,6 +297,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -317,6 +326,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -345,6 +355,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -373,6 +384,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -401,6 +413,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
@@ -429,6 +442,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:singleLine="true"
+                android:inputType="number"
                 android:textSize="16sp" />
 
             <TextView
