@@ -17,8 +17,9 @@ public class Army implements Serializable {
                      int destroyers,
                      int aircraft_carriers,
                      int transports,
+                     int submarines,
                      int antiaircraft_gun) {
-        units = new int[10];
+        units = new int[11];
         units[Infantry.id] = infantry;
         units[Artillery.id] = artillery;
         units[Tank.id] = tanks;
@@ -28,11 +29,12 @@ public class Army implements Serializable {
         units[Destroyer.id] = destroyers;
         units[Aircraftcarrier.id] = aircraft_carriers;
         units[Transport.id] = transports;
+        units[Submarine.id] = submarines;
         units[AntiaircraftGun.id] = antiaircraft_gun;
     }
 
     public Army() {
-        this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     public Army(Army a) {
@@ -46,6 +48,7 @@ public class Army implements Serializable {
         units[Destroyer.id] = a.units[Destroyer.id];
         units[Aircraftcarrier.id] = a.units[Aircraftcarrier.id];
         units[Transport.id] = a.units[Transport.id];
+        units[Submarine.id] = a.units[Submarine.id];
         units[AntiaircraftGun.id] = a.units[AntiaircraftGun.id];
     }
 
@@ -54,7 +57,7 @@ public class Army implements Serializable {
     }
 
     public int naval_battle_units() {
-        return units[Fighter.id] + units[Bomber.id] + units[Battleship.id] + units[Destroyer.id] + units[Aircraftcarrier.id] + units[Transport.id];
+        return units[Fighter.id] + units[Bomber.id] + units[Battleship.id] + units[Destroyer.id] + units[Aircraftcarrier.id] + units[Transport.id] + units[Submarine.id];
     }
 
     public int get(int id) {
@@ -126,6 +129,13 @@ public class Army implements Serializable {
     }
     public int get_transports() {
         return units[Transport.id];
+    }
+
+    public void set_submarines(int submarines) {
+        units[Submarine.id] = submarines;
+    }
+    public int get_submarines() {
+        return units[Submarine.id];
     }
 
     public void set_antiaircraftguns(int antiaircraftguns) {
