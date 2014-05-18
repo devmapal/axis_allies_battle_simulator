@@ -38,5 +38,6 @@
     <string name="pref_sim_iters">Simulation iterations</string>
     <string name="pref_description_sim_iters">The number of battles that will be simulated</string>
     <string name="action_clear">Clear</string>
+    <string name="super_submarines">Super Submarines</string>
 
 </resources>

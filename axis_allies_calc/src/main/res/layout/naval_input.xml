@@ -222,6 +222,16 @@
 
         </RelativeLayout>
 
+        <CheckBox android:id="@+id/super_submarines"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/super_submarines"/>
+
+        <CheckBox android:id="@+id/heavy_bombers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/heavy_bombers"/>
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -434,5 +444,10 @@
                 android:textSize="12sp" />
 
         </RelativeLayout>
+
+        <CheckBox android:id="@+id/jet_fighters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/jet_fighters"/>
     </LinearLayout>
 </ScrollView>
