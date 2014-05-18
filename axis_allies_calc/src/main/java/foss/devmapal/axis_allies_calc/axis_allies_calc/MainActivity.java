@@ -121,6 +121,7 @@ public class MainActivity extends FragmentActivity
                 sharedPref.getInt("a_land_" + Destroyer.name, defaultValue),
                 defaultValue,
                 defaultValue,
+                defaultValue,
                 sharedPref.getInt("a_land_" + AntiaircraftGun.name, defaultValue)
         );
 
@@ -139,6 +140,7 @@ public class MainActivity extends FragmentActivity
                 sharedPref.getInt("d_land_" + Bomber.name, defaultValue),
                 sharedPref.getInt("d_land_" + Battleship.name, defaultValue),
                 sharedPref.getInt("d_land_" + Destroyer.name, defaultValue),
+                defaultValue,
                 defaultValue,
                 defaultValue,
                 sharedPref.getInt("d_land_" + AntiaircraftGun.name, defaultValue)
