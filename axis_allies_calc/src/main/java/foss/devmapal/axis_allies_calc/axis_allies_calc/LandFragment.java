@@ -142,6 +142,10 @@ public class LandFragment extends Fragment {
         } catch (NullPointerException e) {
             attacker.set_destroyers(0);
         }
+        CheckBox cb = (CheckBox) view.findViewById(R.id.combined_bombardment);
+        attacker_wd.combined_bombardment = cb.isChecked();
+        cb = (CheckBox) view.findViewById(R.id.heavy_bombers);
+        attacker_wd.heavy_bombers = cb.isChecked();
 
         // Save defender unit count
         et = (EditText) view.findViewById(R.id.d_infantry);
@@ -179,6 +183,11 @@ public class LandFragment extends Fragment {
         } catch (NullPointerException e) {
             defender.set_bombers(0);
         }
+        cb = (CheckBox) view.findViewById(R.id.d_antiaircraft);
+        int antiaircraft = cb.isChecked() ? 1 : 0;
+        defender.set_antiaircraftguns(antiaircraft);
+        cb = (CheckBox) view.findViewById(R.id.jet_fighters);
+        defender_wd.jet_fighters = cb.isChecked();
     }
 
     public Army getAttacker() {
