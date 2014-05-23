@@ -290,6 +290,7 @@ public class MainActivity extends FragmentActivity
             case LAND_POS:
                 LandFragment land_fragment = (LandFragment) mTabsAdapter.
                                                               getFragment(R.id.viewpager, LAND_POS);
+                land_fragment.getFields(land_fragment.getView());
                 Intent i = new Intent(this, ResultActivity.class);
                 i.putExtra("attacker", land_fragment.getAttacker());
                 i.putExtra("attacker_wd", land_fragment.getAttacker_wd());
