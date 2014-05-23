@@ -189,6 +189,6 @@ public class LandResultFragment extends ListFragment {
     }
 
     public interface Constants {
-        String LOG = "foss.devmapal.axis_allies_calc,axis_allies_calc";
+        String LOG = "foss.devmapal.axis_allies_calc.axis_allies_calc";
     }
 }
