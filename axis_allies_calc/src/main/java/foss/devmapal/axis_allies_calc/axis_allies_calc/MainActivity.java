@@ -1,7 +1,5 @@
 package foss.devmapal.axis_allies_calc.axis_allies_calc;
 
-import android.app.Activity;
-
 import android.app.ActionBar;
 import android.support.v4.app.FragmentManager;
 import android.app.FragmentTransaction;
