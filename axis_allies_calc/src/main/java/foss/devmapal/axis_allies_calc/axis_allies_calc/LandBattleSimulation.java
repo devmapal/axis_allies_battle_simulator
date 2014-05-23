@@ -190,12 +190,13 @@ public class LandBattleSimulation extends Battle {
         Army attacker = new Army(this.attacker);
         Army defender = new Army(this.defender);
 
-        int attacker_hits = calc_attacker_opening_fire(attacker);
-        int defender_hits = calc_defender_opening_fire(attacker, defender);
-        apply_antiaircraft_hits(attacker, defender_hits);
-        apply_hits_on_defender(defender, attacker_hits);
         while(attacker.land_battle_units() > 0 &&
                 defender.land_battle_units() > 0) {
+            int attacker_hits = calc_attacker_opening_fire(attacker);
+            int defender_hits = calc_defender_opening_fire(attacker, defender);
+            apply_antiaircraft_hits(attacker, defender_hits);
+            apply_hits_on_defender(defender, attacker_hits);
+
             attacker_hits = calc_attacker_hits(attacker);
             defender_hits = calc_defender_hits(defender);
             apply_hits_on_attacker(attacker, defender_hits);
