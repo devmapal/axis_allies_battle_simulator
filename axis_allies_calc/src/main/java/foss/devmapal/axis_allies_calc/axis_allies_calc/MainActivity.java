@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import java.util.ArrayList;
@@ -410,7 +411,14 @@ public class MainActivity extends FragmentActivity
         public void onPageSelected(int position) {
             final InputMethodManager imm = (InputMethodManager) mContext.getSystemService(
                     Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getFragment(R.id.viewpager, position).getView().getWindowToken(), 0);
+            if(imm != null) {
+                Fragment frag = getFragment(R.id.viewpager, position);
+                if(frag != null) {
+                    View view = frag.getView();
+                    if(view != null)
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            }
             mActionBar.setSelectedNavigationItem(position);
         }
 
