@@ -6,6 +6,7 @@ package foss.devmapal.axis_allies_calc.axis_allies_calc;
 public class Fighter {
     public final static int attack;
     public final static int defense;
+    public final static int jet_fighter_defense;
     public final static int cost;
     public final static String name = "fighter";
     public static final int id = 3;
@@ -13,6 +14,7 @@ public class Fighter {
     static {
         attack = 3;
         defense = 4;
+        jet_fighter_defense = 5;
         cost = 10;
     }
 

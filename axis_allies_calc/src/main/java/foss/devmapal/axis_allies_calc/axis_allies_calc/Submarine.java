@@ -5,14 +5,16 @@ package foss.devmapal.axis_allies_calc.axis_allies_calc;
  */
 public class Submarine {
     public final static int attack;
+    public final static int super_submarine_attack;
     public final static int defense;
     public final static int cost;
     public final static String name = "submarine";
     public static final int id = 9;
 
     static {
-        attack = 3;
-        defense = 3;
+        attack = 2;
+        super_submarine_attack = 3;
+        defense = 2;
         cost = 8;
     }
 
