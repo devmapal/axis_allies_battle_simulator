@@ -145,26 +145,40 @@ public class NavalFragment extends Fragment {
         attacker_wd.heavy_bombers = cb.isChecked();
 
         // Save defender unit count
-        et = (EditText) view.findViewById(R.id.d_infantry);
+        et = (EditText) view.findViewById(R.id.d_battleships);
         try {
-            defender.set_infantry(Integer.parseInt(et.getText().toString()));
-            if(defender.get_infantry() < 0) defender.set_infantry(0);
+            defender.set_battleships(Integer.parseInt(et.getText().toString()));
+            if(defender.get_battleships() < 0) defender.set_battleships(0);
         } catch (NullPointerException e) {
-            defender.set_infantry(0);
+            defender.set_battleships(0);
         }
-        et = (EditText) view.findViewById(R.id.d_artillery);
+        et = (EditText) view.findViewById(R.id.d_destroyers);
         try {
-            defender.set_artillery(Integer.parseInt(et.getText().toString()));
-            if(defender.get_artillery() < 0) defender.set_artillery(0);
+            defender.set_destroyers(Integer.parseInt(et.getText().toString()));
+            if(defender.get_destroyers() < 0) defender.set_destroyers(0);
         } catch (NullPointerException e) {
-            defender.set_artillery(0);
+            defender.set_destroyers(0);
         }
-        et = (EditText) view.findViewById(R.id.d_tanks);
+        et = (EditText) view.findViewById(R.id.d_aircraft_carriers);
         try {
-            defender.set_tanks(Integer.parseInt(et.getText().toString()));
-            if(defender.get_tanks() < 0) defender.set_tanks(0);
+            defender.set_aircraftcarriers(Integer.parseInt(et.getText().toString()));
+            if(defender.get_aircraftcarriers() < 0) defender.set_aircraftcarriers(0);
         } catch (NullPointerException e) {
-            defender.set_tanks(0);
+            defender.set_aircraftcarriers(0);
+        }
+        et = (EditText) view.findViewById(R.id.d_transports);
+        try {
+            defender.set_transports(Integer.parseInt(et.getText().toString()));
+            if(defender.get_transports() < 0) defender.set_transports(0);
+        } catch (NullPointerException e) {
+            defender.set_transports(0);
+        }
+        et = (EditText) view.findViewById(R.id.d_submarines);
+        try {
+            defender.set_submarines(Integer.parseInt(et.getText().toString()));
+            if(defender.get_submarines() < 0) defender.set_submarines(0);
+        } catch (NullPointerException e) {
+            defender.set_submarines(0);
         }
         et = (EditText) view.findViewById(R.id.d_fighters);
         try {
