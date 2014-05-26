@@ -286,16 +286,30 @@ public class MainActivity extends FragmentActivity
     }
 
     public void runAction() {
+        Intent i;
         switch(getActionBar().getSelectedNavigationIndex()) {
             case LAND_POS:
                 LandFragment land_fragment = (LandFragment) mTabsAdapter.
                                                               getFragment(R.id.viewpager, LAND_POS);
                 land_fragment.getFields(land_fragment.getView());
-                Intent i = new Intent(this, ResultActivity.class);
+                i = new Intent(this, ResultActivity.class);
                 i.putExtra("attacker", land_fragment.getAttacker());
                 i.putExtra("attacker_wd", land_fragment.getAttacker_wd());
                 i.putExtra("defender", land_fragment.getDefender());
                 i.putExtra("defender_wd", land_fragment.getDefender_wd());
+                i.putExtra("land_battle", true);
+                startActivity(i);
+                break;
+            case NAVAL_POS:
+                NavalFragment naval_fragment = (NavalFragment) mTabsAdapter.
+                        getFragment(R.id.viewpager, NAVAL_POS);
+                naval_fragment.getFields(naval_fragment.getView());
+                i = new Intent(this, ResultActivity.class);
+                i.putExtra("attacker", naval_fragment.getAttacker());
+                i.putExtra("attacker_wd", naval_fragment.getAttacker_wd());
+                i.putExtra("defender", naval_fragment.getDefender());
+                i.putExtra("defender_wd", naval_fragment.getDefender_wd());
+                i.putExtra("land_battle", false);
                 startActivity(i);
                 break;
         }

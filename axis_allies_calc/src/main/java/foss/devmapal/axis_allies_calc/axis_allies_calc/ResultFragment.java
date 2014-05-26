@@ -19,7 +19,6 @@ public class ResultFragment extends Fragment {
     private boolean land_battle;
     private Bundle extras;
 
-    private LandResultFragment result_fragment;
     private LinearLayout linlaComputeProgress;
 
     /**
@@ -57,11 +56,21 @@ public class ResultFragment extends Fragment {
 
         linlaComputeProgress = (LinearLayout) view.findViewById(R.id.linlaComputeProgress);
         linlaComputeProgress.setVisibility(View.VISIBLE);
+        FragmentManager fm = getChildFragmentManager();
         if(land_battle == true) {
-            FragmentManager fm = getChildFragmentManager();
-            result_fragment = (LandResultFragment) fm.findFragmentById(R.id.result_fragment_container);
+            LandResultFragment result_fragment = (LandResultFragment) fm.findFragmentById(R.id.result_fragment_container);
             if(result_fragment == null) {
                 result_fragment = LandResultFragment.newInstance(extras);
+                FragmentTransaction ft_child = getChildFragmentManager().beginTransaction();
+                ft_child.replace(R.id.result_fragment_container, result_fragment);
+                ft_child.commit();
+            }
+        }
+        else
+        {
+            NavalResultFragment result_fragment = (NavalResultFragment) fm.findFragmentById(R.id.result_fragment_container);
+            if(result_fragment == null) {
+                result_fragment = NavalResultFragment.newInstance(extras);
                 FragmentTransaction ft_child = getChildFragmentManager().beginTransaction();
                 ft_child.replace(R.id.result_fragment_container, result_fragment);
                 ft_child.commit();

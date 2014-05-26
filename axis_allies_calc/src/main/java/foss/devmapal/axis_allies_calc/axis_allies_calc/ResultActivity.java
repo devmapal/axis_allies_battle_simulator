@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ResultActivity extends Activity implements LandResultFragment.OnFragmentInteractionListener {
+public class ResultActivity extends Activity implements LandResultFragment.OnFragmentInteractionListener,
+                                                        NavalResultFragment.OnFragmentInteractionListener {
     private ResultFragment frag;
 
     @Override
@@ -19,7 +20,7 @@ public class ResultActivity extends Activity implements LandResultFragment.OnFra
         FragmentManager fm = getFragmentManager();
         frag = (ResultFragment) fm.findFragmentById(R.id.result_container);
         if( frag == null ) {
-            frag = ResultFragment.newInstance(extras, true);
+            frag = ResultFragment.newInstance(extras, extras.getBoolean("land_battle"));
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.add(R.id.result_container, frag);
             ft.commit();
