@@ -73,10 +73,6 @@ public class NavalBattleSimulation extends Battle {
 
     private int calc_attacker_hits(Army attacker) {
         int hits = calc_hits(attacker.get_transports(), Transport.attack);
-        if(attacker_wd.super_submarines)
-            hits += calc_hits(attacker.get_submarines(), Submarine.super_submarine_attack);
-        else
-            hits += calc_hits(attacker.get_submarines(), Submarine.attack);
         hits += calc_hits(attacker.get_fighters(), Fighter.attack);
         hits += calc_hits(attacker.get_destroyers(), Destroyer.attack);
         hits += calc_hits(attacker.get_bombers(), Bomber.attack);
@@ -90,7 +86,6 @@ public class NavalBattleSimulation extends Battle {
 
     private int calc_defender_hits(Army defender) {
         int hits = calc_hits(defender.get_transports(), Transport.defense);
-        hits += calc_hits(defender.get_submarines(), Submarine.defense);
         if(defender_wd.jet_fighters)
             hits += calc_hits(defender.get_fighters(), Fighter.jet_fighter_defense);
         else
