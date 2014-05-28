@@ -29,6 +29,10 @@ public class LandBattleSimulation extends Battle {
                                 int sim_iters,
                                 boolean take_territory) {
         super(attacker, attacker_wd, defender, defender_wd, sim_iters);
+
+        if(attacker.land_battle_units() == 0 || defender.land_battle_units() == 0)
+            this.sim_iters = 1;
+
         this.task = task;
         this.take_territory = take_territory;
         

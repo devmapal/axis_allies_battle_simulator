@@ -22,6 +22,10 @@ public class NavalBattleSimulation extends Battle {
                                  WeaponsDevelopment defender_wd,
                                  int sim_iters) {
         super(attacker, attacker_wd, defender, defender_wd, sim_iters);
+
+        if(attacker.naval_battle_units() == 0 || defender.naval_battle_units() == 0)
+            this.sim_iters = 1;
+
         this.task = task;
 
         attacker_hit_order = new ArrayList<Integer>(7);
@@ -44,6 +48,7 @@ public class NavalBattleSimulation extends Battle {
     }
 
     public BattleResult run() {
+
         BattleResult result = new BattleResult(this.sim_iters);
 
         // Simulate sim_iters battles
