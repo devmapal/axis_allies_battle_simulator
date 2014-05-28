@@ -348,6 +348,19 @@ public class MainActivity extends FragmentActivity
             case R.id.action_run:
                 runAction();
                 return true;
+            case R.id.action_swap:
+                switch(getActionBar().getSelectedNavigationIndex()) {
+                    case LAND_POS:
+                        LandFragment land_fragment = (LandFragment) mTabsAdapter.
+                                getFragment(R.id.viewpager, LAND_POS);
+                        land_fragment.swap();
+                        break;
+                    case NAVAL_POS:
+                        NavalFragment naval_fragment = (NavalFragment) mTabsAdapter.
+                                getFragment(R.id.viewpager, NAVAL_POS);
+                        naval_fragment.swap();
+                }
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

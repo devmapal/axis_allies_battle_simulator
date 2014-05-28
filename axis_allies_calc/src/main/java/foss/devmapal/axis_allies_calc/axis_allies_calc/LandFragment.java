@@ -268,6 +268,17 @@ public class LandFragment extends Fragment {
         }
     }
 
+    public void swap() {
+        getFields(getView());
+        Army attacker_old = attacker;
+        WeaponsDevelopment attacker_wd_old = attacker_wd;
+        attacker = defender;
+        attacker_wd = defender_wd;
+        defender = attacker_old;
+        defender_wd = attacker_wd_old;
+        setFields(getView());
+    }
+
     /**
     * This interface must be implemented by activities that contain this
     * fragment to allow an interaction in this fragment to be communicated

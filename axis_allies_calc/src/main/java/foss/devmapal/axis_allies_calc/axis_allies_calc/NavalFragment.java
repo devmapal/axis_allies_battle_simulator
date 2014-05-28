@@ -71,19 +71,19 @@ public class NavalFragment extends Fragment {
 
         // Initialize defender input fields
         et = (EditText) view.findViewById(R.id.d_battleships);
-        et.setText(Integer.toString(attacker.get_battleships()));
+        et.setText(Integer.toString(defender.get_battleships()));
         et = (EditText) view.findViewById(R.id.d_destroyers);
-        et.setText(Integer.toString(attacker.get_destroyers()));
+        et.setText(Integer.toString(defender.get_destroyers()));
         et = (EditText) view.findViewById(R.id.d_aircraft_carriers);
-        et.setText(Integer.toString(attacker.get_aircraftcarriers()));
+        et.setText(Integer.toString(defender.get_aircraftcarriers()));
         et = (EditText) view.findViewById(R.id.d_transports);
-        et.setText(Integer.toString(attacker.get_transports()));
+        et.setText(Integer.toString(defender.get_transports()));
         et = (EditText) view.findViewById(R.id.d_submarines);
-        et.setText(Integer.toString(attacker.get_submarines()));
+        et.setText(Integer.toString(defender.get_submarines()));
         et = (EditText) view.findViewById(R.id.d_fighters);
-        et.setText(Integer.toString(attacker.get_fighters()));
+        et.setText(Integer.toString(defender.get_fighters()));
         et = (EditText) view.findViewById(R.id.d_bombers);
-        et.setText(Integer.toString(attacker.get_bombers()));
+        et.setText(Integer.toString(defender.get_bombers()));
         cb = (CheckBox) view.findViewById(R.id.jet_fighters);
         cb.setChecked(defender_wd.jet_fighters);
     }
@@ -258,6 +258,17 @@ public class NavalFragment extends Fragment {
                 attacker_wd,
                 defender,
                 defender_wd);
+    }
+
+    public void swap() {
+        getFields(getView());
+        Army attacker_old = attacker;
+        WeaponsDevelopment attacker_wd_old = attacker_wd;
+        attacker = defender;
+        attacker_wd = defender_wd;
+        defender = attacker_old;
+        defender_wd = attacker_wd_old;
+        setFields(getView());
     }
 
     /**
