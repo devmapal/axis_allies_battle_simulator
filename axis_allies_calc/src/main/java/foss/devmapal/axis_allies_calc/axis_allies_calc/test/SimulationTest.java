@@ -593,6 +593,49 @@ public class SimulationTest extends InstrumentationTestCase {
         assertEquals(attacker_won, expected_result);
     }
 
+    public void testArtilleryInfSupport() throws Exception {
+        Army attacker = new Army();
+        attacker.set_infantry(1);
+        attacker.set_artillery(1);
+        WeaponsDevelopment attacker_wd = new WeaponsDevelopment();
+        Army defender = new Army();
+        defender.set_artillery(1);
+        WeaponsDevelopment defender_wd = new WeaponsDevelopment();
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                return null;
+            }
+        };
+        LandBattleSimulation battle = new LandBattleSimulation(
+                task,
+                attacker,
+                attacker_wd,
+                defender,
+                defender_wd,
+                100000,
+                true);
+
+        BattleResult result = battle.run();
+        double attacker_won = ((double) result.get_attacker_won())/result.get_sim_iters()*100;
+
+        attacker.set_infantry(0);
+        attacker.set_artillery(2);
+        battle = new LandBattleSimulation(
+                task,
+                attacker,
+                attacker_wd,
+                defender,
+                defender_wd,
+                100000,
+                true);
+
+        result = battle.run();
+        double attacker_won2 = ((double) result.get_attacker_won())/result.get_sim_iters()*100;
+
+        assertTrue(Math.abs(attacker_won - attacker_won2) < TOLERANCE*100);
+    }
+
 
     public void test1TransportVs1Transport() throws Exception {
         Army attacker = new Army();
