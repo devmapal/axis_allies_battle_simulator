@@ -331,7 +331,7 @@ public class SimulationTest extends InstrumentationTestCase {
 
         BattleResult result = battle.run();
         double attacker_won = ((double) result.get_attacker_won())/result.get_sim_iters()*100;
-        double expected_result = 100*1./7;
+        double expected_result = 100*1./16;
         assertTrue(attacker_won/expected_result > 1 - TOLERANCE);
         assertTrue(attacker_won/expected_result < 1 + TOLERANCE);
     }
