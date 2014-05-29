@@ -5,8 +5,6 @@ import android.os.AsyncTask;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertNotNull;
-
 /**
  * Created by devmapal on 4/12/14.
  */
@@ -162,8 +160,7 @@ public class NavalBattleSimulation extends Battle {
         for (int unit_id : hit_order) {
             if((unit_id == Fighter.id || unit_id == Bomber.id) && sea_only)
                 continue;
-            Integer units = army.get(unit_id);
-            assertNotNull(units);
+            int units = army.get(unit_id);
             if (units > hits) {
                 units -= hits;
                 army.set(unit_id, units);

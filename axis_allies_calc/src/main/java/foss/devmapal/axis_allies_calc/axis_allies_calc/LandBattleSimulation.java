@@ -1,12 +1,10 @@
 package foss.devmapal.axis_allies_calc.axis_allies_calc;
 
 import android.os.AsyncTask;
+import android.os.Debug;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
 
 /**
  * Created by devmapal on 4/12/14.
@@ -161,8 +159,7 @@ public class LandBattleSimulation extends Battle {
         for(int unit_id : attacker_hit_order) {
             if(defender_hits == 0)
                 return;
-            Integer attacker_units = attacker.get(unit_id);
-            assertNotNull(attacker_units);
+            int attacker_units = attacker.get(unit_id);
             if(attacker_units == 0)
                 continue;
             if(attacker_units > defender_hits) {
@@ -185,7 +182,6 @@ public class LandBattleSimulation extends Battle {
         if(defender_hits > 0) {
             int sum = attacker.get_infantry() + attacker.get_artillery() + attacker.get_tanks();
             if(sum > 0) {
-                assertEquals(sum, 1);
                 attacker.set_infantry(0);
                 attacker.set_artillery(0);
                 attacker.set_tanks(0);
@@ -198,8 +194,7 @@ public class LandBattleSimulation extends Battle {
             if(defender_hits == 0)
                 return;
             if(unit_id == Fighter.id || unit_id == Bomber.id) {
-                Integer attacker_units = attacker.get(unit_id);
-                assertNotNull(attacker_units);
+                int attacker_units = attacker.get(unit_id);
                 if (attacker_units > defender_hits) {
                     attacker_units -= defender_hits;
                     attacker.set(unit_id, attacker_units);
@@ -214,8 +209,7 @@ public class LandBattleSimulation extends Battle {
 
     private void apply_hits_on_defender(Army defender, int attacker_hits) {
         for (int unit_id : defender_hit_order) {
-            Integer defender_units = defender.get(unit_id);
-            assertNotNull(defender_units);
+            int defender_units = defender.get(unit_id);
             if (defender_units > attacker_hits) {
                 defender_units -= attacker_hits;
                 defender.set(unit_id, defender_units);
