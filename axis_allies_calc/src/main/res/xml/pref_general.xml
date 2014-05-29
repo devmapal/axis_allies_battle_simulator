@@ -12,6 +12,6 @@
         android:summary="@string/pref_description_sim_iters"
         android:singleLine="true"
         android:inputType="number"
-        android:defaultValue="100000" />
+        android:defaultValue="10000" />
 
 </PreferenceScreen>
