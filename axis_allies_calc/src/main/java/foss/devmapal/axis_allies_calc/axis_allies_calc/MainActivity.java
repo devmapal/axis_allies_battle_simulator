@@ -386,6 +386,12 @@ public class MainActivity extends FragmentActivity
         }
     }
 
+    public void onCheckboxClicked(View view) {
+        LandFragment land_fragment = (LandFragment) mTabsAdapter.
+            getFragment(R.id.viewpager, LAND_POS);
+        land_fragment.onCheckboxClicked(view);
+    }
+
     public static class TabsAdapter extends FragmentPagerAdapter
             implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
         private final FragmentActivity mContext;

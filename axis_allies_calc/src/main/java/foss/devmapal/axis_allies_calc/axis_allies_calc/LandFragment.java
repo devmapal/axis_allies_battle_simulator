@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 /**
  * A fragment representing a list of Items.
@@ -71,6 +73,7 @@ public class LandFragment extends Fragment {
         et.setText(Integer.toString(attacker.get_destroyers()));
         CheckBox cb = (CheckBox) view.findViewById(R.id.combined_bombardment);
         cb.setChecked(attacker_wd.combined_bombardment);
+        onCheckboxClicked(cb);
         cb = (CheckBox) view.findViewById(R.id.heavy_bombers);
         cb.setChecked(attacker_wd.heavy_bombers);
 
@@ -265,6 +268,22 @@ public class LandFragment extends Fragment {
 
         if (BuildConfig.DEBUG) {
             Log.e(Constants.LOG, "onPause");
+        }
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.combined_bombardment:
+                View layout = ((View) view.getParent()).findViewById(R.id.a_destroyers_layout);
+                if (checked)
+                    layout.setVisibility(View.VISIBLE);
+                else
+                    layout.setVisibility(View.GONE);
+                break;
         }
     }
 

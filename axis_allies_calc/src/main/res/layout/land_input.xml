@@ -205,9 +205,11 @@
 
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/a_destroyers_layout"
             android:layout_width="fill_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            android:padding="6dip" >
+            android:padding="6dip"
+            android:visibility="gone" >
 
             <EditText
                 android:id="@+id/a_destroyers"
@@ -236,7 +238,8 @@
         <CheckBox android:id="@+id/combined_bombardment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/combined_bombardment"/>
+            android:text="@string/combined_bombardment"
+            android:onClick="onCheckboxClicked"/>
 
         <CheckBox android:id="@+id/heavy_bombers"
             android:layout_width="wrap_content"
