@@ -52,6 +52,20 @@ public class Army implements Serializable {
         units[AntiaircraftGun.id] = a.units[AntiaircraftGun.id];
     }
 
+    public void add(Army a) {
+        units[Infantry.id] += a.get_infantry();
+        units[Artillery.id] += a.get_artillery();
+        units[Tank.id] += a.get_tanks();
+        units[Fighter.id] += a.get_fighters();
+        units[Bomber.id] += a.get_bombers();
+        units[Battleship.id] += a.get_battleships();
+        units[Destroyer.id] += a.get_destroyers();
+        units[Aircraftcarrier.id] += a.get_aircraftcarriers();
+        units[Transport.id] += a.get_transports();
+        units[Submarine.id] += a.get_submarines();
+        units[AntiaircraftGun.id] += a.get_antiaircraftguns();
+    }
+
     public int land_battle_units() {
         return units[Infantry.id] + units[Artillery.id] + units[Tank.id] + units[Fighter.id] + units[Bomber.id];
     }

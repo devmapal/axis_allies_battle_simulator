@@ -47,18 +47,58 @@ public class NavalBattleSimulation extends Battle {
         defender_hit_order.add(Battleship.id);
     }
 
-    public BattleResult run() {
-
-        BattleResult result = new BattleResult(this.sim_iters);
-
-        // Simulate sim_iters battles
-        for(int i = 0; i < sim_iters; ++i) {
-            sim_battle(result);
-            if(task.isCancelled())
-                break;
+    private BattleResult aggregate_results(BattleResult[] results) {
+        BattleResult result = new BattleResult(results.length * results[0].get_sim_iters());
+        for(BattleResult x : results) {
+            result.set_attacker_won(result.get_attacker_won() + x.get_attacker_won());
+            result.get_attacker().add(x.get_attacker());
+            result.set_defender_won(result.get_defender_won() + x.get_defender_won());
+            result.get_defender().add(x.get_defender());
         }
 
         return result;
+    }
+
+    public BattleResult run() {
+        int cpus = Runtime.getRuntime().availableProcessors();
+        int sim_iters = this.sim_iters / cpus;
+        if(sim_iters == 0)
+            sim_iters = 1;
+        BattleResult[] results = new BattleResult[cpus];
+        WorkerThread[] threads = new WorkerThread[cpus];
+
+        for(int n = 0; n < cpus; ++n) {
+            results[n] = new BattleResult(sim_iters);
+            threads[n] = new WorkerThread(results[n]);
+            threads[n].start();
+        }
+
+        for(int n = 0; n < cpus; ++n) {
+            try {
+                threads[n].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return aggregate_results(results);
+    }
+
+    private class WorkerThread extends Thread {
+        private BattleResult result;
+
+        public WorkerThread(BattleResult result) {
+            this.result = result;
+        }
+
+        @Override
+        public void run() {
+            for(int i = 0; i < result.get_sim_iters(); ++i) {
+                sim_battle(result);
+                if (task.isCancelled())
+                    break;
+            }
+        }
     }
 
     private int calc_hits(int num, int strength) {
