@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="foss.devmapal.axis_allies_calc.axis_allies_calc" >
+    package="foss.devmapal.axis_allies_calc.axis_allies_calc"
+    android:versionCode="1"
+    android:versionName="0.1">
+
 
     <application
         android:allowBackup="true"
