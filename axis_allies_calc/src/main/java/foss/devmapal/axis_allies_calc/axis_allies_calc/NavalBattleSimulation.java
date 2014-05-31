@@ -8,10 +8,7 @@ import java.util.List;
 /**
  * Created by devmapal on 4/12/14.
  */
-public class NavalBattleSimulation extends Battle {
-    private List<Integer> attacker_hit_order;
-    private List<Integer> defender_hit_order;
-    private AsyncTask<Void, Void, Void> task;
+public class NavalBattleSimulation extends BattleSimulation {
 
     public NavalBattleSimulation(AsyncTask<Void, Void, Void> task,
                                  Army attacker,
@@ -19,12 +16,7 @@ public class NavalBattleSimulation extends Battle {
                                  Army defender,
                                  WeaponsDevelopment defender_wd,
                                  int sim_iters) {
-        super(attacker, attacker_wd, defender, defender_wd, sim_iters);
-
-        if(attacker.naval_battle_units() == 0 || defender.naval_battle_units() == 0)
-            this.sim_iters = 1;
-
-        this.task = task;
+        super(task, attacker, attacker_wd, defender, defender_wd, sim_iters);
 
         attacker_hit_order = new ArrayList<Integer>(7);
         attacker_hit_order.add(Transport.id);
@@ -43,70 +35,9 @@ public class NavalBattleSimulation extends Battle {
         defender_hit_order.add(Bomber.id);
         defender_hit_order.add(Aircraftcarrier.id);
         defender_hit_order.add(Battleship.id);
-    }
 
-    private BattleResult aggregate_results(BattleResult[] results) {
-        BattleResult result = new BattleResult(results.length * results[0].get_sim_iters());
-        for(BattleResult x : results) {
-            result.set_attacker_won(result.get_attacker_won() + x.get_attacker_won());
-            result.get_attacker().add(x.get_attacker());
-            result.set_defender_won(result.get_defender_won() + x.get_defender_won());
-            result.get_defender().add(x.get_defender());
-        }
-
-        return result;
-    }
-
-    public BattleResult run() {
-        int cpus = Runtime.getRuntime().availableProcessors();
-        int sim_iters = this.sim_iters / cpus;
-        if(sim_iters == 0)
-            sim_iters = 1;
-        BattleResult[] results = new BattleResult[cpus];
-        WorkerThread[] threads = new WorkerThread[cpus];
-
-        for(int n = 0; n < cpus; ++n) {
-            results[n] = new BattleResult(sim_iters);
-            threads[n] = new WorkerThread(results[n]);
-            threads[n].start();
-        }
-
-        for(int n = 0; n < cpus; ++n) {
-            try {
-                threads[n].join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return aggregate_results(results);
-    }
-
-    private class WorkerThread extends Thread {
-        private BattleResult result;
-
-        public WorkerThread(BattleResult result) {
-            this.result = result;
-        }
-
-        @Override
-        public void run() {
-            for(int i = 0; i < result.get_sim_iters(); ++i) {
-                sim_battle(result);
-                if (task.isCancelled())
-                    break;
-            }
-        }
-    }
-
-    private int calc_hits(int num, int strength) {
-        int hits = 0;
-        for (int i = 0; i < num; ++i) {
-            if(Die.roll() <= strength)
-                ++hits;
-        }
-
-        return hits;
+        if(attacker.naval_battle_units() == 0 || defender.naval_battle_units() == 0)
+            this.sim_iters = 1;
     }
 
     private int calc_attacker_hits(Army attacker) {
@@ -172,7 +103,8 @@ public class NavalBattleSimulation extends Battle {
         }
     }
 
-    private void sim_battle(BattleResult result) {
+    @Override
+    protected void sim_battle(BattleResult result) {
         Army attacker = new Army(this.attacker);
         Army defender = new Army(this.defender);
         int attacker_battleships = attacker.get_battleships();

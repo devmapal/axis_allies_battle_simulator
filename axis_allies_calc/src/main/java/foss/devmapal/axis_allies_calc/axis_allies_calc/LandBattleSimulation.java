@@ -1,7 +1,6 @@
 package foss.devmapal.axis_allies_calc.axis_allies_calc;
 
 import android.os.AsyncTask;
-import android.os.Debug;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +8,8 @@ import java.util.List;
 /**
  * Created by devmapal on 4/12/14.
  */
-public class LandBattleSimulation extends Battle {
+public class LandBattleSimulation extends BattleSimulation {
     private boolean take_territory;
-    private List<Integer> attacker_hit_order;
-    private List<Integer> defender_hit_order;
-    private AsyncTask<Void, Void, Void> task;
 
     public LandBattleSimulation(AsyncTask<Void, Void, Void> task,
                                 Army attacker,
@@ -22,12 +18,8 @@ public class LandBattleSimulation extends Battle {
                                 WeaponsDevelopment defender_wd,
                                 int sim_iters,
                                 boolean take_territory) {
-        super(attacker, attacker_wd, defender, defender_wd, sim_iters);
+        super(task, attacker, attacker_wd, defender, defender_wd, sim_iters);
 
-        if(attacker.land_battle_units() == 0 || defender.land_battle_units() == 0)
-            this.sim_iters = 1;
-
-        this.task = task;
         this.take_territory = take_territory;
         
         attacker_hit_order = new ArrayList<Integer>(5);
@@ -43,70 +35,9 @@ public class LandBattleSimulation extends Battle {
         defender_hit_order.add(Artillery.id);
         defender_hit_order.add(Tank.id);
         defender_hit_order.add(Fighter.id);
-    }
 
-    private BattleResult aggregate_results(BattleResult[] results) {
-        BattleResult result = new BattleResult(results.length * results[0].get_sim_iters());
-        for(BattleResult x : results) {
-            result.set_attacker_won(result.get_attacker_won() + x.get_attacker_won());
-            result.get_attacker().add(x.get_attacker());
-            result.set_defender_won(result.get_defender_won() + x.get_defender_won());
-            result.get_defender().add(x.get_defender());
-        }
-
-        return result;
-    }
-
-    public BattleResult run() {
-        int cpus = Runtime.getRuntime().availableProcessors();
-        int sim_iters = this.sim_iters / cpus;
-        if(sim_iters == 0)
-            sim_iters = 1;
-        BattleResult[] results = new BattleResult[cpus];
-        WorkerThread[] threads = new WorkerThread[cpus];
-
-        for(int n = 0; n < cpus; ++n) {
-            results[n] = new BattleResult(sim_iters);
-            threads[n] = new WorkerThread(results[n]);
-            threads[n].start();
-        }
-
-        for(int n = 0; n < cpus; ++n) {
-            try {
-                threads[n].join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return aggregate_results(results);
-    }
-
-    private class WorkerThread extends Thread {
-        private BattleResult result;
-
-        public WorkerThread(BattleResult result) {
-            this.result = result;
-        }
-
-        @Override
-        public void run() {
-            for(int i = 0; i < result.get_sim_iters(); ++i) {
-                sim_battle(result);
-                if (task.isCancelled())
-                    break;
-            }
-        }
-    }
-
-    private int calc_hits(int num, int strength) {
-        int hits = 0;
-        for (int i = 0; i < num; ++i) {
-            if(Die.roll() <= strength)
-                ++hits;
-        }
-
-        return hits;
+        if(attacker.land_battle_units() == 0 || defender.land_battle_units() == 0)
+            this.sim_iters = 1;
     }
 
     private int calc_attacker_hits(Army attacker) {
@@ -137,7 +68,7 @@ public class LandBattleSimulation extends Battle {
         return hits;
     }
 
-    private int calc_attacker_opening_fire(Army attacker) {
+    private int calc_attacker_opening_fire(Army attacker, Army defender) {
         int hits = calc_hits(attacker.get_battleships(), Battleship.attack);
         if(attacker_wd.combined_bombardment)
             hits += calc_hits(attacker.get_destroyers(), Destroyer.attack);
@@ -221,13 +152,14 @@ public class LandBattleSimulation extends Battle {
         }
     }
 
-    private void sim_battle(BattleResult result) {
+    @Override
+    protected void sim_battle(BattleResult result) {
         Army attacker = new Army(this.attacker);
         Army defender = new Army(this.defender);
 
         while(attacker.land_battle_units() > 0 &&
                 defender.land_battle_units() > 0) {
-            int attacker_hits = calc_attacker_opening_fire(attacker);
+            int attacker_hits = calc_attacker_opening_fire(attacker, defender);
             int defender_hits = calc_defender_opening_fire(attacker, defender);
             apply_antiaircraft_hits(attacker, defender_hits);
             apply_hits_on_defender(defender, attacker_hits);

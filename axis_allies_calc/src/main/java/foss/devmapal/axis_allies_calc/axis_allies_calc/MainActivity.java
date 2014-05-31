@@ -115,7 +115,7 @@ public class MainActivity extends FragmentActivity
         int defaultValue = 0;
         boolean defaultBool = false;
 
-        // Restore Land Battle input
+        // Restore Land BattleSimulation input
         Army attacker = new Army(
                 sharedPref.getInt("a_land_" + Infantry.name, defaultValue),
                 sharedPref.getInt("a_land_" + Artillery.name, defaultValue),
@@ -163,7 +163,7 @@ public class MainActivity extends FragmentActivity
         land_fragment_data.putSerializable(ARG_DEFENDER, defender);
         land_fragment_data.putSerializable(ARG_DEFENDER_WD, defender_wd);
 
-        // Restore Naval Battle input
+        // Restore Naval BattleSimulation input
         attacker = new Army(
                 defaultValue,
                 defaultValue,
