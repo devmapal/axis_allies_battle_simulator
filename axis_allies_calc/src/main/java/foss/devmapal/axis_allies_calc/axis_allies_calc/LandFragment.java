@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.util.Log;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 /**
  * A fragment representing a list of Items.
@@ -31,6 +29,8 @@ public class LandFragment extends Fragment {
     private WeaponsDevelopment defender_wd;
 
     private OnFragmentInteractionListener mListener;
+
+    private HitOrderFragment frag;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

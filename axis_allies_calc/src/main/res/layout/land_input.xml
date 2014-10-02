@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:paddingLeft="16dp"
@@ -254,6 +255,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/heavy_bombers"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignWithParentIfMissing="true"
+                android:paddingTop="20dp"
+                android:paddingBottom="5dp"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:text="@string/hit_order"
+                android:textSize="16sp" />
+
+            <fragment android:name="foss.devmapal.axis_allies_calc.axis_allies_calc.LandAttackerHitOrderFragment"
+                android:id="@+id/attacker_unit_order"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                tools:layout="@layout/dslv_fragment_main" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -434,6 +455,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/jet_fighters"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignWithParentIfMissing="true"
+                android:paddingTop="20dp"
+                android:paddingBottom="5dp"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:text="@string/hit_order"
+                android:textSize="16sp" />
+
+            <fragment android:name="foss.devmapal.axis_allies_calc.axis_allies_calc.LandDefenderHitOrderFragment"
+                android:id="@+id/defender_unit_order"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                tools:layout="@layout/dslv_fragment_main" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

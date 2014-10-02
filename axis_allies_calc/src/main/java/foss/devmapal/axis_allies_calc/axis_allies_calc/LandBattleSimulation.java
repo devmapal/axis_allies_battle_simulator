@@ -1,8 +1,10 @@
 package foss.devmapal.axis_allies_calc.axis_allies_calc;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -189,5 +191,9 @@ public class LandBattleSimulation extends BattleSimulation {
             result.set_attacker_won(result.get_attacker_won()+1);
         else
             result.set_defender_won(result.get_defender_won()+1);
+    }
+
+    public interface Constants {
+        String LOG = "foss.devmapal.axis_allies_calc.axis_allies_calc.LandBattleSimulation";
     }
 }

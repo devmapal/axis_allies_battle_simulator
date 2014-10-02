@@ -1,8 +1,11 @@
 package foss.devmapal.axis_allies_calc.axis_allies_calc;
 
 import android.os.AsyncTask;
+import android.os.Debug;
+import android.util.Log;
 
 import java.util.List;
+import java.util.Date;
 
 /**
  * Created by devmapal on 4/12/14.
@@ -45,12 +48,15 @@ public abstract class BattleSimulation {
 
     public BattleResult run() {
         int cpus = Runtime.getRuntime().availableProcessors();
+        //int cpus = 1;
         int sim_iters = this.sim_iters / cpus;
         if(sim_iters == 0)
             sim_iters = 1;
         BattleResult[] results = new BattleResult[cpus];
         WorkerThread[] threads = new WorkerThread[cpus];
 
+        Date start_date = new Date();
+        long start_ts = start_date.getTime();
         for(int n = 0; n < cpus; ++n) {
             results[n] = new BattleResult(sim_iters);
             threads[n] = new WorkerThread(results[n]);
@@ -65,6 +71,12 @@ public abstract class BattleSimulation {
             }
         }
 
+        Date end_date = new Date();
+        long time = end_date.getTime() - start_ts;
+        if (BuildConfig.DEBUG) {
+            Log.e(Constants.LOG, "Took " + String.valueOf(time) + " ms");
+        }
+
         return aggregate_results(results);
     }
 
@@ -77,10 +89,19 @@ public abstract class BattleSimulation {
 
         @Override
         public void run() {
+            Date start_date = new Date();
+            long start_ts = start_date.getTime();
+
             for(int i = 0; i < result.get_sim_iters(); ++i) {
                 sim_battle(result);
                 if (task.isCancelled())
                     break;
+            }
+
+            Date end_date = new Date();
+            long time = end_date.getTime() - start_ts;
+            if (BuildConfig.DEBUG) {
+                Log.e(Constants.LOG, "Took " + String.valueOf(time) + " ms");
             }
         }
     }
@@ -93,6 +114,10 @@ public abstract class BattleSimulation {
         }
 
         return hits;
+    }
+
+    public interface Constants {
+        String LOG = "foss.devmapal.axis_allies_calc.axis_allies_calc.BattleSimulation";
     }
 
     protected abstract void sim_battle(BattleResult result);

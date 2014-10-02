@@ -40,5 +40,21 @@
     <string name="action_clear">Clear</string>
     <string name="super_submarines">Super Submarines</string>
     <string name="action_swap">Swap</string>
+    <string name="attacker_unit_order">Attacker unit order</string>
+    <string name="hit_order">Hit order</string>
+    <string-array name="land_attacker_hit_order">
+        <item>Infantry</item>
+        <item>Artillery</item>
+        <item>Tank</item>
+        <item>Fighter</item>
+        <item>Bomber</item>
+    </string-array>
+    <string-array name="land_defender_hit_order">
+        <item>Bomber</item>
+        <item>Infantry</item>
+        <item>Artillery</item>
+        <item>Tank</item>
+        <item>Fighter</item>
+    </string-array>
 
 </resources>
