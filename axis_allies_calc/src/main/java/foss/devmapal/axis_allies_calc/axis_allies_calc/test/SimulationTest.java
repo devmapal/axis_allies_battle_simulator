@@ -3,17 +3,45 @@ package foss.devmapal.axis_allies_calc.axis_allies_calc.test;
 import android.os.AsyncTask;
 import android.test.InstrumentationTestCase;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import foss.devmapal.axis_allies_calc.axis_allies_calc.Army;
 import foss.devmapal.axis_allies_calc.axis_allies_calc.BattleResult;
 import foss.devmapal.axis_allies_calc.axis_allies_calc.LandBattleSimulation;
+import foss.devmapal.axis_allies_calc.axis_allies_calc.MainActivity;
 import foss.devmapal.axis_allies_calc.axis_allies_calc.NavalBattleSimulation;
+import foss.devmapal.axis_allies_calc.axis_allies_calc.R;
 import foss.devmapal.axis_allies_calc.axis_allies_calc.WeaponsDevelopment;
 
 /**
  * Created by devmapal on 4/28/14.
  */
 public class SimulationTest extends InstrumentationTestCase {
-/*    static final double TOLERANCE = 0.05;
+    static final double TOLERANCE = 0.05;
+
+    private ArrayList<Integer> land_attacker_hit_order;
+    private ArrayList<Integer> land_defender_hit_order;
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        land_attacker_hit_order = new ArrayList<Integer>() {{
+            add(0); // Infantry
+            add(1); // Artillery
+            add(2); // Tank
+            add(3); // Fighter
+            add(4); // Bomber
+        }};
+        land_defender_hit_order = new ArrayList<Integer>() {{
+            add(4); // Bomber
+            add(0); // Infantry
+            add(1); // Artillery
+            add(2); // Tank
+            add(3); // Fighter
+        }};
+    }
+
 
     public void test1InfVs1Inf() throws Exception {
         Army attacker = new Army();
@@ -32,8 +60,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -61,8 +91,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -90,8 +122,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -119,8 +153,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -149,8 +185,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -178,8 +216,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -207,8 +247,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -236,8 +278,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -265,8 +309,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -294,8 +340,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -324,8 +372,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -353,8 +403,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -382,8 +434,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -411,8 +465,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -440,8 +496,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -469,8 +527,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -499,8 +559,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -528,8 +590,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -555,8 +619,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -582,8 +648,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -611,8 +679,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -625,8 +695,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                land_attacker_hit_order,
                 defender,
                 defender_wd,
+                land_defender_hit_order,
                 100000,
                 true);
 
@@ -771,5 +843,5 @@ public class SimulationTest extends InstrumentationTestCase {
         double expected_result = 100*1./3;
         assertTrue(attacker_won/expected_result > 1 - TOLERANCE);
         assertTrue(attacker_won/expected_result < 1 + TOLERANCE);
-    }*/
+    }
 }
