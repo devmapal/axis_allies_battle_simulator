@@ -3,6 +3,7 @@ package foss.devmapal.axis_allies_calc.axis_allies_calc;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,27 +17,18 @@ public class LandBattleSimulation extends BattleSimulation {
     public LandBattleSimulation(AsyncTask<Void, Void, Void> task,
                                 Army attacker,
                                 WeaponsDevelopment attacker_wd,
+                                ArrayList<Integer> attacker_hit_order,
                                 Army defender,
                                 WeaponsDevelopment defender_wd,
+                                ArrayList<Integer> defender_hit_order,
                                 int sim_iters,
                                 boolean take_territory) {
         super(task, attacker, attacker_wd, defender, defender_wd, sim_iters);
 
         this.take_territory = take_territory;
         
-        attacker_hit_order = new ArrayList<Integer>(5);
-        attacker_hit_order.add(Infantry.id);
-        attacker_hit_order.add(Artillery.id);
-        attacker_hit_order.add(Tank.id);
-        attacker_hit_order.add(Fighter.id);
-        attacker_hit_order.add(Bomber.id);
-
-        defender_hit_order = new ArrayList<Integer>(5);
-        defender_hit_order.add(Bomber.id);
-        defender_hit_order.add(Infantry.id);
-        defender_hit_order.add(Artillery.id);
-        defender_hit_order.add(Tank.id);
-        defender_hit_order.add(Fighter.id);
+        this.attacker_hit_order = attacker_hit_order;
+        this.defender_hit_order = defender_hit_order;
 
         if(attacker.land_battle_units() == 0 || defender.land_battle_units() == 0)
             this.sim_iters = 1;

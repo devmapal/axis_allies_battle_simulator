@@ -17,7 +17,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends FragmentActivity
@@ -114,6 +118,7 @@ public class MainActivity extends FragmentActivity
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         int defaultValue = 0;
         boolean defaultBool = false;
+        String defaultJSON = "[]";
 
         // Restore Land BattleSimulation input
         Army attacker = new Army(
@@ -136,6 +141,7 @@ public class MainActivity extends FragmentActivity
                 sharedPref.getBoolean("a_land_" + getString(R.string.combined_bombardment), defaultBool),
                 sharedPref.getBoolean("a_land_" + getString(R.string.heavy_bombers), defaultBool)
         );
+
 
         Army defender = new Army(
                 sharedPref.getInt("d_land_" + Infantry.name, defaultValue),
@@ -229,7 +235,8 @@ public class MainActivity extends FragmentActivity
         editor.putInt("a_land_" + Destroyer.name, attacker.get_destroyers());
         editor.putInt("a_land_" + AntiaircraftGun.name, attacker.get_antiaircraftguns());
 
-        WeaponsDevelopment attacker_wd = (WeaponsDevelopment) land_fragment_data.getSerializable(ARG_ATTACKER_WD);
+        WeaponsDevelopment attacker_wd =
+                (WeaponsDevelopment) land_fragment_data.getSerializable(ARG_ATTACKER_WD);
         editor.putBoolean("a_land_" + getString(R.string.jet_fighters), attacker_wd.jet_fighters);
         editor.putBoolean("a_land_" + getString(R.string.combined_bombardment), attacker_wd.combined_bombardment);
         editor.putBoolean("a_land_" + getString(R.string.heavy_bombers), attacker_wd.heavy_bombers);
@@ -244,7 +251,8 @@ public class MainActivity extends FragmentActivity
         editor.putInt("d_land_" + Destroyer.name, defender.get_destroyers());
         editor.putInt("d_land_" + AntiaircraftGun.name, defender.get_antiaircraftguns());
 
-        WeaponsDevelopment defender_wd = (WeaponsDevelopment) land_fragment_data.getSerializable(ARG_DEFENDER_WD);
+        WeaponsDevelopment defender_wd =
+                (WeaponsDevelopment) land_fragment_data.getSerializable(ARG_DEFENDER_WD);
         editor.putBoolean("d_land_" + getString(R.string.jet_fighters), defender_wd.jet_fighters);
         editor.putBoolean("d_land_" + getString(R.string.combined_bombardment), defender_wd.combined_bombardment);
         editor.putBoolean("d_land_" + getString(R.string.heavy_bombers), defender_wd.heavy_bombers);
@@ -298,6 +306,19 @@ public class MainActivity extends FragmentActivity
                 i.putExtra("defender", land_fragment.getDefender());
                 i.putExtra("defender_wd", land_fragment.getDefender_wd());
                 i.putExtra("land_battle", true);
+
+                LandAttackerHitOrderFragment lahof =
+                        (LandAttackerHitOrderFragment) getFragmentManager()
+                                .findFragmentById(R.id.attacker_land_hit_order);
+                i.putIntegerArrayListExtra("attacker_hit_order",
+                           MainActivity.get_hit_order(lahof.get_hit_order()));
+
+                LandDefenderHitOrderFragment ldhof =
+                        (LandDefenderHitOrderFragment) getFragmentManager()
+                                .findFragmentById(R.id.defender_land_hit_order);
+                i.putIntegerArrayListExtra("defender_hit_order",
+                        MainActivity.get_hit_order(ldhof.get_hit_order()));
+
                 startActivity(i);
                 break;
             case NAVAL_POS:
@@ -315,6 +336,29 @@ public class MainActivity extends FragmentActivity
         }
     }
 
+    public static ArrayList<Integer> get_hit_order(List<String> hit_order_str) {
+        ArrayList<Integer> hit_order = new ArrayList<>();
+        for(String hit_type: hit_order_str) {
+            switch(hit_type) {
+                case "Infantry":
+                    hit_order.add(Infantry.id);
+                    break;
+                case "Artillery":
+                    hit_order.add(Artillery.id);
+                    break;
+                case "Tank":
+                    hit_order.add(Tank.id);
+                    break;
+                case "Fighter":
+                    hit_order.add(Fighter.id);
+                    break;
+                case "Bomber":
+                    hit_order.add(Bomber.id);
+            }
+        }
+
+        return hit_order;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -338,6 +382,14 @@ public class MainActivity extends FragmentActivity
                         LandFragment land_fragment = (LandFragment) mTabsAdapter.
                                                         getFragment(R.id.viewpager, LAND_POS);
                         land_fragment.clear_fields();
+                        LandAttackerHitOrderFragment lahof =
+                                (LandAttackerHitOrderFragment) getFragmentManager()
+                                        .findFragmentById(R.id.attacker_land_hit_order);
+                        lahof.clear_fields();
+                        LandDefenderHitOrderFragment ldhof =
+                                (LandDefenderHitOrderFragment) getFragmentManager()
+                                        .findFragmentById(R.id.defender_land_hit_order);
+                        ldhof.clear_fields();
                         break;
                     case NAVAL_POS:
                         NavalFragment naval_fragment = (NavalFragment) mTabsAdapter.
@@ -367,7 +419,11 @@ public class MainActivity extends FragmentActivity
     }
 
     @Override
-    public void onSaveState(String id, Army attacker, WeaponsDevelopment attacker_wd, Army defender, WeaponsDevelopment defender_wd) {
+    public void onSaveState(String id,
+                            Army attacker,
+                            WeaponsDevelopment attacker_wd,
+                            Army defender,
+                            WeaponsDevelopment defender_wd) {
         if(id.equals(getString(R.string.title_land_battle))) {
             land_fragment_data.putSerializable(ARG_ATTACKER, new Army(attacker));
             land_fragment_data.putSerializable(ARG_ATTACKER_WD, new WeaponsDevelopment(attacker_wd));

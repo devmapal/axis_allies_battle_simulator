@@ -42,6 +42,7 @@
     <string name="action_swap">Swap</string>
     <string name="attacker_unit_order">Attacker unit order</string>
     <string name="hit_order">Hit order</string>
+    <string name="land_attacker_hit_order_id">land_attacker_hit_order</string>
     <string-array name="land_attacker_hit_order">
         <item>Infantry</item>
         <item>Artillery</item>

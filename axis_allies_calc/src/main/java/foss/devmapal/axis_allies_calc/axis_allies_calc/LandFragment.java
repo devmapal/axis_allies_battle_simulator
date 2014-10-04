@@ -30,8 +30,6 @@ public class LandFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private HitOrderFragment frag;
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).

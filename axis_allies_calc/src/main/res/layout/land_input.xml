@@ -270,7 +270,7 @@
                 android:textSize="16sp" />
 
             <fragment android:name="foss.devmapal.axis_allies_calc.axis_allies_calc.LandAttackerHitOrderFragment"
-                android:id="@+id/attacker_unit_order"
+                android:id="@+id/attacker_land_hit_order"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 tools:layout="@layout/dslv_fragment_main" />
@@ -470,7 +470,7 @@
                 android:textSize="16sp" />
 
             <fragment android:name="foss.devmapal.axis_allies_calc.axis_allies_calc.LandDefenderHitOrderFragment"
-                android:id="@+id/defender_unit_order"
+                android:id="@+id/defender_land_hit_order"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 tools:layout="@layout/dslv_fragment_main" />
