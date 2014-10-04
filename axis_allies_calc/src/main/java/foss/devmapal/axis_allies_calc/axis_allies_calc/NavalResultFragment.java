@@ -9,6 +9,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import java.util.ArrayList;
+
 import static junit.framework.Assert.assertNotNull;
 
 
@@ -24,14 +26,18 @@ public class NavalResultFragment extends ListFragment {
 
     private static final String ARG_ATTACKER = "attacker";
     private static final String ARG_ATTACKER_WD = "attacker_wd";
+    private static final String ARG_ATTACKER_HIT_ORDER = "attacker_hit_order";
     private static final String ARG_DEFENDER = "defender";
     private static final String ARG_DEFENDER_WD = "defender_wd";
+    private static final String ARG_DEFENDER_HIT_ORDER = "defender_hit_order";
     private static final String ARG_EXTRAS = "extras";
 
     private Army attacker;
     private WeaponsDevelopment attacker_wd;
+    private ArrayList<Integer> attacker_hit_order;
     private Army defender;
     private WeaponsDevelopment defender_wd;
+    private ArrayList<Integer> defender_hit_order;
 
     private Tuple<String, String>[] result_items;
 
@@ -62,8 +68,10 @@ public class NavalResultFragment extends ListFragment {
             Bundle extras = getArguments().getBundle(ARG_EXTRAS);
             attacker = (Army) extras.getSerializable(ARG_ATTACKER);
             attacker_wd = (WeaponsDevelopment) extras.getSerializable(ARG_ATTACKER_WD);
+            attacker_hit_order = extras.getIntegerArrayList(ARG_ATTACKER_HIT_ORDER);
             defender = (Army) extras.getSerializable(ARG_DEFENDER);
             defender_wd = (WeaponsDevelopment) extras.getSerializable(ARG_DEFENDER_WD);
+            defender_hit_order = extras.getIntegerArrayList(ARG_DEFENDER_HIT_ORDER);
         }
     }
 
@@ -121,8 +129,10 @@ public class NavalResultFragment extends ListFragment {
                 task,
                 attacker,
                 attacker_wd,
+                attacker_hit_order,
                 defender,
                 defender_wd,
+                defender_hit_order,
                 sim_iters);
 
         if(task.isCancelled())

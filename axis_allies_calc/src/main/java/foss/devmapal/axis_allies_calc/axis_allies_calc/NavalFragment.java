@@ -94,49 +94,49 @@ public class NavalFragment extends Fragment {
         try {
             attacker.set_battleships(Integer.parseInt(et.getText().toString()));
             if(attacker.get_battleships() < 0) attacker.set_battleships(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             attacker.set_battleships(0);
         }
         et = (EditText) view.findViewById(R.id.a_destroyers);
         try {
             attacker.set_destroyers(Integer.parseInt(et.getText().toString()));
             if(attacker.get_destroyers() < 0) attacker.set_destroyers(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             attacker.set_destroyers(0);
         }
         et = (EditText) view.findViewById(R.id.a_aircraft_carriers);
         try {
             attacker.set_aircraftcarriers(Integer.parseInt(et.getText().toString()));
             if(attacker.get_aircraftcarriers() < 0) attacker.set_aircraftcarriers(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             attacker.set_aircraftcarriers(0);
         }
         et = (EditText) view.findViewById(R.id.a_transports);
         try {
             attacker.set_transports(Integer.parseInt(et.getText().toString()));
             if(attacker.get_transports() < 0) attacker.set_transports(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             attacker.set_transports(0);
         }
         et = (EditText) view.findViewById(R.id.a_submarines);
         try {
             attacker.set_submarines(Integer.parseInt(et.getText().toString()));
             if(attacker.get_submarines() < 0) attacker.set_submarines(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             attacker.set_submarines(0);
         }
         et = (EditText) view.findViewById(R.id.a_fighters);
         try {
             attacker.set_fighters(Integer.parseInt(et.getText().toString()));
             if(attacker.get_fighters() < 0) attacker.set_fighters(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             attacker.set_fighters(0);
         }
         et = (EditText) view.findViewById(R.id.a_bombers);
         try {
             attacker.set_bombers(Integer.parseInt(et.getText().toString()));
             if(attacker.get_bombers() < 0) attacker.set_bombers(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             attacker.set_bombers(0);
         }
         CheckBox cb = (CheckBox) view.findViewById(R.id.super_submarines);
@@ -149,49 +149,49 @@ public class NavalFragment extends Fragment {
         try {
             defender.set_battleships(Integer.parseInt(et.getText().toString()));
             if(defender.get_battleships() < 0) defender.set_battleships(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             defender.set_battleships(0);
         }
         et = (EditText) view.findViewById(R.id.d_destroyers);
         try {
             defender.set_destroyers(Integer.parseInt(et.getText().toString()));
             if(defender.get_destroyers() < 0) defender.set_destroyers(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             defender.set_destroyers(0);
         }
         et = (EditText) view.findViewById(R.id.d_aircraft_carriers);
         try {
             defender.set_aircraftcarriers(Integer.parseInt(et.getText().toString()));
             if(defender.get_aircraftcarriers() < 0) defender.set_aircraftcarriers(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             defender.set_aircraftcarriers(0);
         }
         et = (EditText) view.findViewById(R.id.d_transports);
         try {
             defender.set_transports(Integer.parseInt(et.getText().toString()));
             if(defender.get_transports() < 0) defender.set_transports(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             defender.set_transports(0);
         }
         et = (EditText) view.findViewById(R.id.d_submarines);
         try {
             defender.set_submarines(Integer.parseInt(et.getText().toString()));
             if(defender.get_submarines() < 0) defender.set_submarines(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             defender.set_submarines(0);
         }
         et = (EditText) view.findViewById(R.id.d_fighters);
         try {
             defender.set_fighters(Integer.parseInt(et.getText().toString()));
             if(defender.get_fighters() < 0) defender.set_fighters(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             defender.set_fighters(0);
         }
         et = (EditText) view.findViewById(R.id.d_bombers);
         try {
             defender.set_bombers(Integer.parseInt(et.getText().toString()));
             if(defender.get_bombers() < 0) defender.set_bombers(0);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             defender.set_bombers(0);
         }
         cb = (CheckBox) view.findViewById(R.id.jet_fighters);

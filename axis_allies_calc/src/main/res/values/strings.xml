@@ -57,5 +57,14 @@
         <item>Tank</item>
         <item>Fighter</item>
     </string-array>
+    <string-array name="naval_hit_order">
+        <item>Transport</item>
+        <item>Submarine</item>
+        <item>Fighter</item>
+        <item>Destroyer</item>
+        <item>Bomber</item>
+        <item>Aircraftcarrier</item>
+        <item>Battleship</item>
+    </string-array>
 
 </resources>

@@ -22,6 +22,7 @@ public class SimulationTest extends InstrumentationTestCase {
 
     private ArrayList<Integer> land_attacker_hit_order;
     private ArrayList<Integer> land_defender_hit_order;
+    private ArrayList<Integer> naval_hit_order;
 
     @Override
     protected void setUp() throws Exception {
@@ -39,6 +40,15 @@ public class SimulationTest extends InstrumentationTestCase {
             add(1); // Artillery
             add(2); // Tank
             add(3); // Fighter
+        }};
+        naval_hit_order = new ArrayList<Integer>() {{
+            add(8); // Transport
+            add(9); // Submarine
+            add(3); // Fighter
+            add(6); // Destroyer
+            add(4); // Bomber
+            add(7); // Aircraftcarrier
+            add(5); // Battleship
         }};
     }
 
@@ -726,8 +736,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                naval_hit_order,
                 defender,
                 defender_wd,
+                naval_hit_order,
                 100000);
 
         BattleResult result = battle.run();
@@ -753,8 +765,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                naval_hit_order,
                 defender,
                 defender_wd,
+                naval_hit_order,
                 100000);
 
         BattleResult result = battle.run();
@@ -780,8 +794,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                naval_hit_order,
                 defender,
                 defender_wd,
+                naval_hit_order,
                 100000);
 
         BattleResult result = battle.run();
@@ -807,8 +823,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                naval_hit_order,
                 defender,
                 defender_wd,
+                naval_hit_order,
                 100000);
 
         BattleResult result = battle.run();
@@ -834,8 +852,10 @@ public class SimulationTest extends InstrumentationTestCase {
                 task,
                 attacker,
                 attacker_wd,
+                naval_hit_order,
                 defender,
                 defender_wd,
+                naval_hit_order,
                 100000);
 
         BattleResult result = battle.run();

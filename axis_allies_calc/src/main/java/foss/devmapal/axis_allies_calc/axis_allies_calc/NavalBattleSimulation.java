@@ -13,28 +13,15 @@ public class NavalBattleSimulation extends BattleSimulation {
     public NavalBattleSimulation(AsyncTask<Void, Void, Void> task,
                                  Army attacker,
                                  WeaponsDevelopment attacker_wd,
+                                 ArrayList<Integer> attacker_hit_order,
                                  Army defender,
                                  WeaponsDevelopment defender_wd,
+                                 ArrayList<Integer> defender_hit_order,
                                  int sim_iters) {
         super(task, attacker, attacker_wd, defender, defender_wd, sim_iters);
 
-        attacker_hit_order = new ArrayList<Integer>(7);
-        attacker_hit_order.add(Transport.id);
-        attacker_hit_order.add(Submarine.id);
-        attacker_hit_order.add(Fighter.id);
-        attacker_hit_order.add(Destroyer.id);
-        attacker_hit_order.add(Bomber.id);
-        attacker_hit_order.add(Aircraftcarrier.id);
-        attacker_hit_order.add(Battleship.id);
-
-        defender_hit_order = new ArrayList<Integer>(7);
-        defender_hit_order.add(Transport.id);
-        defender_hit_order.add(Submarine.id);
-        defender_hit_order.add(Fighter.id);
-        defender_hit_order.add(Destroyer.id);
-        defender_hit_order.add(Bomber.id);
-        defender_hit_order.add(Aircraftcarrier.id);
-        defender_hit_order.add(Battleship.id);
+        this.attacker_hit_order = attacker_hit_order;
+        this.defender_hit_order = defender_hit_order;
 
         if(attacker.naval_battle_units() == 0 || defender.naval_battle_units() == 0)
             this.sim_iters = 1;

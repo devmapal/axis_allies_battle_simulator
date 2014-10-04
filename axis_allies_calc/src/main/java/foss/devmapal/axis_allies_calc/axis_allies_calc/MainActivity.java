@@ -331,6 +331,19 @@ public class MainActivity extends FragmentActivity
                 i.putExtra("defender", naval_fragment.getDefender());
                 i.putExtra("defender_wd", naval_fragment.getDefender_wd());
                 i.putExtra("land_battle", false);
+
+                NavalAttackerHitOrderFragment nahof =
+                        (NavalAttackerHitOrderFragment) getFragmentManager()
+                                .findFragmentById(R.id.attacker_naval_hit_order);
+                i.putIntegerArrayListExtra("attacker_hit_order",
+                        MainActivity.get_hit_order(nahof.get_hit_order()));
+
+                NavalDefenderHitOrderFragment ndhof =
+                        (NavalDefenderHitOrderFragment) getFragmentManager()
+                                .findFragmentById(R.id.defender_naval_hit_order);
+                i.putIntegerArrayListExtra("defender_hit_order",
+                        MainActivity.get_hit_order(ndhof.get_hit_order()));
+
                 startActivity(i);
                 break;
         }
@@ -354,6 +367,22 @@ public class MainActivity extends FragmentActivity
                     break;
                 case "Bomber":
                     hit_order.add(Bomber.id);
+                    break;
+                case "Transport":
+                    hit_order.add(Transport.id);
+                    break;
+                case "Submarine":
+                    hit_order.add(Submarine.id);
+                    break;
+                case "Destroyer":
+                    hit_order.add(Destroyer.id);
+                    break;
+                case "Aircraftcarrier":
+                    hit_order.add(Aircraftcarrier.id);
+                    break;
+                case "Battleship":
+                    hit_order.add(Battleship.id);
+                    break;
             }
         }
 
@@ -395,6 +424,14 @@ public class MainActivity extends FragmentActivity
                         NavalFragment naval_fragment = (NavalFragment) mTabsAdapter.
                                                         getFragment(R.id.viewpager, NAVAL_POS);
                         naval_fragment.clear_fields();
+                        NavalAttackerHitOrderFragment nahof =
+                                (NavalAttackerHitOrderFragment) getFragmentManager()
+                                        .findFragmentById(R.id.attacker_naval_hit_order);
+                        nahof.clear_fields();
+                        NavalDefenderHitOrderFragment ndhof =
+                                (NavalDefenderHitOrderFragment) getFragmentManager()
+                                        .findFragmentById(R.id.defender_naval_hit_order);
+                        ndhof.clear_fields();
                 }
                 return true;
             case R.id.action_run:
