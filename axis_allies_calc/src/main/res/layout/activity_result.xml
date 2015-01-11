@@ -4,6 +4,21 @@
     android:layout_height="match_parent"
     tools:context="${packageName}.${activityClass}">
 
+    <LinearLayout
+        android:id="@+id/linlaComputeProgress"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/pbComputeProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </ProgressBar>
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/result_container"
         android:layout_width="match_parent"

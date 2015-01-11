@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:id="@+id/result_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight=".50"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:focusableInTouchMode="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginEnd="5dp">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignWithParentIfMissing="true"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:text="@string/attacker"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip" >
+
+                <TextView
+                    android:id="@+id/a_won"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/a_won"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/won"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip" >
+
+                <TextView
+                    android:id="@+id/a_infantry"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/a_infantry"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/infantry"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip" >
+
+                <TextView
+                    android:id="@+id/a_artillery"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/a_artillery"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/artillery"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip" >
+
+                <TextView
+                    android:id="@+id/a_tanks"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/a_tanks"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/tanks"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip" >
+
+                <TextView
+                    android:id="@+id/a_fighters"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/a_fighters"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/fighters"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip" >
+
+                <TextView
+                    android:id="@+id/a_bombers"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/a_bombers"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/bombers"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/a_destroyers_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip"
+                android:visibility="gone" >
+
+                <EditText
+                    android:id="@+id/a_destroyers"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/a_destroyers"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/destroyers"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight=".50"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:focusableInTouchMode="true"
+            android:layout_alignParentRight="true">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignWithParentIfMissing="true"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:text="@string/defender"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip" >
+
+                <TextView
+                    android:id="@+id/d_won"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/d_won"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/won"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip" >
+
+                <TextView
+                    android:id="@+id/d_infantry"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/d_infantry"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/infantry"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip" >
+
+                <TextView
+                    android:id="@+id/d_artillery"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/d_artillery"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/artillery"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip" >
+
+                <TextView
+                    android:id="@+id/d_tanks"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/d_tanks"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/tanks"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip" >
+
+                <TextView
+                    android:id="@+id/d_fighters"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/d_fighters"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/fighters"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                android:padding="6dip" >
+
+                <TextView
+                    android:id="@+id/d_bombers"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/d_bombers"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/bombers"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

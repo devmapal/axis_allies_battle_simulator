@@ -48,7 +48,6 @@ public abstract class BattleSimulation {
 
     public BattleResult run() {
         int cpus = Runtime.getRuntime().availableProcessors();
-        //int cpus = 1;
         int sim_iters = this.sim_iters / cpus;
         if(sim_iters == 0)
             sim_iters = 1;
