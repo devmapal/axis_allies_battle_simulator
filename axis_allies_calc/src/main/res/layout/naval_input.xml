@@ -265,7 +265,7 @@
             <fragment android:name="foss.devmapal.axis_allies_calc.axis_allies_calc.NavalAttackerHitOrderFragment"
                 android:id="@+id/attacker_naval_hit_order"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="490dp"
                 tools:layout="@layout/dslv_fragment_main" />
         </LinearLayout>
 
@@ -517,7 +517,7 @@
             <fragment android:name="foss.devmapal.axis_allies_calc.axis_allies_calc.NavalDefenderHitOrderFragment"
                 android:id="@+id/defender_naval_hit_order"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="490dp"
                 tools:layout="@layout/dslv_fragment_main" />
         </LinearLayout>
     </LinearLayout>
