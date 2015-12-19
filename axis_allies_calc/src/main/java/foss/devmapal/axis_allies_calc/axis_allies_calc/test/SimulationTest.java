@@ -715,7 +715,7 @@ public class SimulationTest extends InstrumentationTestCase {
         result = battle.run();
         double attacker_won2 = ((double) result.get_attacker_won())/result.get_sim_iters()*100;
 
-        assertTrue(Math.abs(attacker_won - attacker_won2) < TOLERANCE*100);
+        assertTrue(Math.abs(attacker_won - attacker_won2) < TOLERANCE * 100);
     }
 
 
@@ -861,6 +861,36 @@ public class SimulationTest extends InstrumentationTestCase {
         BattleResult result = battle.run();
         double attacker_won = ((double) result.get_attacker_won())/result.get_sim_iters()*100;
         double expected_result = 100*1./3;
+        assertTrue(attacker_won/expected_result > 1 - TOLERANCE);
+        assertTrue(attacker_won/expected_result < 1 + TOLERANCE);
+    }
+
+    public void test1DestroyerVs1Submarine() throws Exception {
+        Army attacker = new Army();
+        attacker.set_destroyers(1);
+        WeaponsDevelopment attacker_wd = new WeaponsDevelopment();
+        Army defender = new Army();
+        defender.set_submarines(1);
+        WeaponsDevelopment defender_wd = new WeaponsDevelopment();
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                return null;
+            }
+        };
+        NavalBattleSimulation battle = new NavalBattleSimulation(
+                task,
+                attacker,
+                attacker_wd,
+                naval_hit_order,
+                defender,
+                defender_wd,
+                naval_hit_order,
+                100000);
+
+        BattleResult result = battle.run();
+        double attacker_won = ((double) result.get_attacker_won())/result.get_sim_iters()*100;
+        double expected_result = 100*1./2;
         assertTrue(attacker_won/expected_result > 1 - TOLERANCE);
         assertTrue(attacker_won/expected_result < 1 + TOLERANCE);
     }
