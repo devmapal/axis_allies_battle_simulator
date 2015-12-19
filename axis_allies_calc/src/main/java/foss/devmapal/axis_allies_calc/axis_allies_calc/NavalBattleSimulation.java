@@ -56,20 +56,16 @@ public class NavalBattleSimulation extends BattleSimulation {
 
     private int calc_attacker_opening_fire(Army attacker, Army defender) {
         int hits = 0;
-        if(defender.get_destroyers() == 0) {
-            if(attacker_wd.super_submarines)
-                hits += calc_hits(attacker.get_submarines(), Submarine.super_submarine_attack);
-            else
-                hits += calc_hits(attacker.get_submarines(), Submarine.attack);
-        }
+        if(attacker_wd.super_submarines)
+            hits += calc_hits(attacker.get_submarines(), Submarine.super_submarine_attack);
+        else
+            hits += calc_hits(attacker.get_submarines(), Submarine.attack);
 
         return hits;
     }
 
     private int calc_defender_opening_fire(Army defender, Army attacker) {
-        int hits = 0;
-        if(attacker.get_destroyers() == 0)
-            hits += calc_hits(defender.get_submarines(), Submarine.defense);
+        int hits = calc_hits(defender.get_submarines(), Submarine.defense);
 
         return hits;
     }
